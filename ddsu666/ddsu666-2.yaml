@@ -1,0 +1,164 @@
+# 必须声明ID为"time"的Time
+
+globals:
+  - id: ${ddsu666_2_name}_month_energy_sum
+    type: float
+    restore_value: true
+    initial_value: '0.0'
+  - id: ${ddsu666_2_name}_yesterday_energy_sum
+    type: float
+    restore_value: true
+    initial_value: '0.0'
+
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_u
+    name: ${ddsu666_2_name}_u
+    address: 0x2000
+    register_count: 2
+    unit_of_measurement: V
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: voltage
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_i
+    name: ${ddsu666_2_name}_i
+    address: 0x2002
+    register_count: 2
+    unit_of_measurement: A
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 3
+    device_class: current
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_p
+    name: ${ddsu666_2_name}_p
+    address: 0x2004
+    register_count: 2
+    unit_of_measurement: W
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+    device_class: power
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_q
+    name: ${ddsu666_2_name}_q
+    address: 0x2006
+    register_count: 2
+    unit_of_measurement: var
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+    device_class: power
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_s
+    name: ${ddsu666_2_name}_s
+    address: 0x2008
+    register_count: 2
+    unit_of_measurement: VA
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+    device_class: power
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_pf
+    name: ${ddsu666_2_name}_pf
+    address: 0x200A
+    register_count: 2
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 3
+    device_class: power_factor
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_freq
+    name: ${ddsu666_2_name}_freq
+    address: 0x200E
+    register_count: 2
+    unit_of_measurement: Hz
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 2
+    filters:
+      - median:
+          window_size: 3
+          send_every: 3
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsu666_2_name}_modbus_controller
+    id: ${ddsu666_2_name}_ep
+    name: ${ddsu666_2_name}_ep
+    address: 0x4000
+    register_count: 2
+    unit_of_measurement: kWh
+    register_type: holding
+    value_type: FP32
+    accuracy_decimals: 2
+    device_class: energy
+    state_class: total_increasing
+    filters:
+      - median:
+          window_size: 3
+          send_every: 3
+  - platform: total_daily_energy
+    name: ${ddsu666_2_name}_today_energy
+    id: ${ddsu666_2_name}_today_energy
+    power_id: ${ddsu666_2_name}_p
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    restore: true
+    method: right
+    accuracy_decimals: 1
+    # 利用 on_value 触发回调，当传感器归零（新的一天）时，将前一天的值累加入月累计中
+    on_value:
+      then:
+        - lambda: |-
+            float sensor_value = x;
+            static float last_reading = 0.0;
+            if (sensor_value < last_reading || sensor_value == 0.0) {
+              id(${ddsu666_2_name}_yesterday_energy_sum) = last_reading;
+              auto now = id(my_time).now();
+              time_t rawtime = now.timestamp;
+              struct tm * timeinfo = localtime(&rawtime);
+              if (timeinfo->tm_mday == 1) {
+                //ESP_LOGD("custom", "New month detected on %d, resetting monthly energy.", timeinfo->tm_mday);
+                id(${ddsu666_2_name}_month_energy_sum) = 0.0;
+              } else {
+                id(${ddsu666_2_name}_month_energy_sum) += last_reading;
+                //ESP_LOGD("custom", "New daily cycle detected, adding %.4f kWh to monthly energy.", last_reading);
+              }
+            }
+            last_reading = sensor_value;
+  # 当月用电量
+  - platform: template
+    name: ${ddsu666_2_name}_monthly_energy
+    id: ${ddsu666_2_name}_monthly_energy
+    lambda: |-
+      return id(${ddsu666_2_name}_month_energy_sum) + id(${ddsu666_2_name}_today_energy).state;
+    update_interval: 60s
+    unit_of_measurement: "kWh"
+    icon: "mdi:flash"
+  # 昨日用电量
+  - platform: template
+    name: ${ddsu666_2_name}_yesterday_energy
+    id: ${ddsu666_2_name}_yesterday_energy
+    lambda: |-
+      return id(${ddsu666_2_name}_yesterday_energy_sum);
+    update_interval: 60s
+    unit_of_measurement: "kWh"
+    icon: "mdi:flash"
