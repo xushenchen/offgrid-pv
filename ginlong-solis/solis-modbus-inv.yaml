@@ -23,6 +23,15 @@
 # with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
 #
 
+script:
+  # 添加一个可以设置功率百分比的脚本
+  - id: set_${jlsolis_1_name}_limit_output_power
+    then:
+      - lambda: |-
+            auto call = id(${jlsolis_1_name}_limit_output_power).make_call();
+            call.set_value(value);
+            call.perform();
+
 number:
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
