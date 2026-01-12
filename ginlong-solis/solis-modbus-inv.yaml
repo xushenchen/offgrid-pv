@@ -26,10 +26,12 @@
 script:
   # 添加一个可以设置功率百分比的脚本
   - id: set_${jlsolis_1_name}_limit_output_power
+    parameters:
+      targetPowerLimit: uint32_t
     then:
       - lambda: |-
             auto call = id(${jlsolis_1_name}_limit_output_power).make_call();
-            call.set_value(value);
+            call.set_value(targetPowerLimit);
             call.perform();
 
 number:
