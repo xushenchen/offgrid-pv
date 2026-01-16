@@ -227,7 +227,7 @@ switch:
       name: "${bms0} balancer"
 
   - platform: ble_client
-    ble_client_id: client0
+    ble_client_id: "${bms0}_client"
     id: ble_client_switch0
     name: "${bms0} enable bluetooth connection"
 
