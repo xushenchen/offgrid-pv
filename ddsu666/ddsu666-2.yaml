@@ -132,7 +132,7 @@ sensor:
             static float last_reading = 0.0;
             if (sensor_value < last_reading || sensor_value == 0.0) {
               id(${ddsu666_2_name}_yesterday_energy_sum) = last_reading;
-              auto now = id(my_time).now();
+              auto now = id(esptime).now();
               time_t rawtime = now.timestamp;
               struct tm * timeinfo = localtime(&rawtime);
               if (timeinfo->tm_mday == 1) {
