@@ -228,7 +228,7 @@ switch:
 
   - platform: ble_client
     ble_client_id: "${bms1}_client"
-    id: ble_client_switch0
+    id: ${bms1}_ble_client_switch
     name: "${bms1} enable bluetooth connection"
 
 
