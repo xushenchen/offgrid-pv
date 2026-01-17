@@ -1,0 +1,60 @@
+substitutions:
+  xtddsu5188_1_name: meter_1
+# 浙江新拓新能源有限公司
+sensor:
+  # 电压
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_u"
+    register_type: read
+    address: 0
+    value_type: FP32
+    accuracy_decimals: 2
+  # 有功功率
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_p"
+    register_type: read
+    address: 0018
+    value_type: FP32
+    accuracy_decimals: 3
+  # 无功功率
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_q"
+    register_type: read
+    address: 26
+    value_type: FP32
+    accuracy_decimals: 3
+  # 频率
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_freq"
+    register_type: read
+    address: 54
+    value_type: FP32
+    accuracy_decimals: 2
+  # 总用电量
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_ep"
+    register_type: read
+    address: 256
+    value_type: FP32
+    accuracy_decimals: 2
+  # 电流
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_i"
+    register_type: read
+    address: 0008
+    value_type: FP32
+    accuracy_decimals: 3
+  # 功率因数
+  - platform: modbus_controller
+    modbus_controller_id: meter
+    name: "${xtddsu5188_1_name}_pf"
+    register_type: read
+    address: 42
+    value_type: FP32
+    accuracy_decimals: 3

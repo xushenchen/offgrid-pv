@@ -1,4 +1,6 @@
-# 必须声明ID为"time"的Time
+# 需要统一提供一个esptime的时间
+substitutions:
+  ddsu666_1_name: meter_1
 
 globals:
   - id: ${ddsu666_1_name}_month_energy_sum
