@@ -626,7 +626,7 @@ text_sensor:
       }
   - platform: template
     name: "${growatt0_device_name} Sys Time (readable)"
-    id: device_sys_time_readable
+    id: ${growatt0_device_name}_sys_time_readable
     lambda: |-
       if (isnan(id(${growatt0_device_name}_sys_time_year_set).state) ||
           isnan(id(${growatt0_device_name}_sys_time_month_set).state) ||
