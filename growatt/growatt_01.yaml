@@ -18,7 +18,7 @@ sensor:
     register_type: "read"
     icon: mdi:flash
     value_type: U_WORD
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -137,7 +137,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.01
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # AC输出频率
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -175,7 +175,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     name: "${growatt0_device_name} AC input watt"
@@ -226,7 +226,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
     
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -241,7 +241,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
     
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -256,7 +256,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -271,7 +271,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   #   on_value:
   #     # 每次日发电量更新时，把最新值加到月累计
   #     then:
@@ -311,7 +311,7 @@ sensor:
   #   accuracy_decimals: 1
   #   filters:
   #   - multiply: 0.1
-  #   skip_updates: ${control_params_skip_updates}
+  #   skip_updates: ${growatt0_control_params_skip_updates}
     
   # - platform: modbus_controller
   #   modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -326,7 +326,7 @@ sensor:
   #   accuracy_decimals: 1
   #   filters:
   #   - multiply: 0.1
-  #   skip_updates: ${control_params_skip_updates}
+  #   skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -340,7 +340,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
     
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -355,7 +355,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -370,7 +370,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -385,7 +385,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -495,7 +495,7 @@ sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     name: "${growatt0_device_name} Battery Discharge VA"
@@ -659,7 +659,7 @@ number:
     min_value: 2
     max_value: 280
     step: 1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # 市电充电电流
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -672,7 +672,7 @@ number:
     min_value: 0
     max_value: 800
     step: 1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # 大概率是强充电压（数据/10）
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -685,7 +685,7 @@ number:
     min_value: 0
     max_value: 580
     step: 1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # 浮充电压（数据/10）
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -698,7 +698,7 @@ number:
     min_value: 0
     max_value: 570
     step: 1
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # 切换回市电的电压（数据/10）
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -712,7 +712,7 @@ number:
     max_value: 514
     step: 1
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   # modbus通讯地址
   # - platform: modbus_controller
   #   modbus_controller_id: ${growatt0_modbus_controller_id}
@@ -733,7 +733,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     id: ${growatt0_device_name}_sys_time_month_set
@@ -741,7 +741,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     id: ${growatt0_device_name}_sys_time_day_set
@@ -749,7 +749,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     id: ${growatt0_device_name}_sys_time_hour_set
@@ -757,7 +757,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     id: ${growatt0_device_name}_sys_time_min_set
@@ -765,7 +765,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     id: ${growatt0_device_name}_sys_time_second_set
@@ -773,7 +773,7 @@ number:
     register_type: holding
     value_type: U_WORD
     mode: box
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
 select:
   - platform: modbus_controller
@@ -785,7 +785,7 @@ select:
       "电池优先": 0
       "光伏优先": 1
       "市电优先": 2
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     name: "${growatt0_device_name} Charge Source Set"
@@ -796,7 +796,7 @@ select:
       "光伏优先": 0
       "光伏和市电" : 1
       "仅光伏": 2
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: ${growatt0_modbus_controller_id}
     name: "${growatt0_device_name} Output Volt Type Set"
@@ -807,7 +807,7 @@ select:
       "208V": 0
       "230V" : 1
       "240V": 2
-    skip_updates: ${control_params_skip_updates}
+    skip_updates: ${growatt0_control_params_skip_updates}
 
 switch:
   - platform: template
