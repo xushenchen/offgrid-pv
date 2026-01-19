@@ -593,7 +593,7 @@ sensor:
 
 text_sensor:
   - platform: template
-    name: "${growatt0_device_name} System Status"
+    name: "${growatt0_device_name} System Status Text"
     update_interval: 5s
     lambda: |-
       int value = (int) id(${growatt0_device_name}_system_status).state;
