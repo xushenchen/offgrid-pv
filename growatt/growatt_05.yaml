@@ -1,0 +1,853 @@
+# 需要统一提供一个esptime的时间
+substitutions:
+  growatt4_modbus_controller_id: growatt4_modbus_controller
+  growatt4_device_name: growatt4
+  growatt4_control_params_skip_updates: 0
+
+
+interval:
+  - interval: 29h
+    then:
+      - switch.turn_on: "${growatt4_device_name}_write_current_time_to_modbus"
+
+sensor:    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} System Status"
+    id: ${growatt4_device_name}_system_status
+    address: 0
+    register_type: "read"
+    icon: mdi:flash
+    value_type: U_WORD
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: "${growatt4_device_name}_PV1_DcPower"
+    name: "${growatt4_device_name} PV1 DcPower"
+    address: 3
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV1 DcVoltage"
+    address: 1
+    register_type: "read"
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV1 DcInputCurrent"
+    address: 7
+    register_type: "read"
+    unit_of_measurement: A
+    device_class: current
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: "${growatt4_device_name}_PV2_DcPower"
+    name: "${growatt4_device_name} PV2 DcPower"
+    address: 5
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+       
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV2 DcVoltage"
+    address: 2
+    register_type: "read"
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+   
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV2 DcInputCurrent"
+    address: 8
+    register_type: "read"
+    unit_of_measurement: A
+    device_class: current
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  # 输出有功功率
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Output active power"
+    address: 9
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+  # 输出包括无功功率
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Output apparent power"
+    address: 11
+    register_type: "read"
+    unit_of_measurement: VA
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  # AC输入频率
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Ac Input Frequency"
+    address: 21
+    register_type: "read"
+    unit_of_measurement: Hz
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.01
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # AC输出频率
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC output frequency"
+    address: 23
+    register_type: "read"
+    unit_of_measurement: Hz
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.01
+  # AC输出电压
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC output Volt"
+    address: 22
+    register_type: "read"
+    unit_of_measurement: V
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  # 市电接入电压
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Grid Volt"
+    address: 20
+    register_type: "read"
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC input watt"
+    address: 36
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  # AC输出功率
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC discharge watt"
+    address: 69
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - lambda: |-
+          if (x == 0xFFFFFFFF || x > 4000000000) {
+            return 0;
+          }
+          return x * 0.1;
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Output Current"
+    address: 34
+    register_type: "read"
+    unit_of_measurement: A
+    device_class: current
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Total Energy Today"
+    address: 53
+    register_type: "read"
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Total Energy Lifetime"
+    address: 55
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV1 Energy Today"
+    id: "${growatt4_device_name}_pv1_energy_today"
+    address: 48
+    register_type: "read"
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} PV1 Energy Lifetime"
+    address: 50
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  #   on_value:
+  #     # 每次日发电量更新时，把最新值加到月累计
+  #     then:
+  #       - lambda: |-
+  #           float delta = x - id(${growatt4_device_name}_temp_reocrd_pv1_total_energy_sum);  // 计算自上次更新以来的增量
+  #           auto now = id(homeassistant_time).now();
+  #           if (now.year <= 2000) return;
+  #           int today = now.day_of_month;
+  #           // 这里主要判断是不是新的一个月，如果是新的一个月得把当月的数据重置
+  #           if (today != id(last_day)) {
+  #             id(last_day) = today;
+  #             if (today == 1) {
+  #               id(${growatt4_device_name}_pv1_month_energy_sum) = 0;
+  #             }
+  #           }
+  #           if (delta > 0) {
+  #             // 如果今日的数据-昨天的小于等于0的话，说明是开启新的一天了
+  #             id(${growatt4_device_name}_pv1_month_energy_sum) += delta;
+  #           }
+  #           id(${growatt4_device_name}_temp_reocrd_pv1_total_energy_sum) = x; // 今日的值保留
+  
+  # - platform: template
+  #   name: "${growatt4_device_name} PV1 Energy Monthly"
+  #   unit_of_measurement: "kWh"
+  #   lambda: |-
+  #     return id(${growatt4_device_name}_pv1_month_energy_sum);
+
+  # - platform: modbus_controller
+  #   modbus_controller_id: ${growatt4_modbus_controller_id}
+  #   name: "${growatt4_device_name} PV2 Energy Today"
+  #   address: 52
+  #   register_type: "read"
+  #   unit_of_measurement: kWh
+  #   device_class: energy
+  #   icon: mdi:flash
+  #   value_type: U_DWORD
+  #   accuracy_decimals: 1
+  #   filters:
+  #   - multiply: 0.1
+  #   skip_updates: ${growatt4_control_params_skip_updates}
+    
+  # - platform: modbus_controller
+  #   modbus_controller_id: ${growatt4_modbus_controller_id}
+  #   name: "${growatt4_device_name} PV2 Energy Lifetime"
+  #   address: 54
+  #   register_type: "read"
+  #   unit_of_measurement: kWh
+  #   state_class: total_increasing
+  #   device_class: energy
+  #   icon: mdi:flash
+  #   value_type: U_DWORD
+  #   accuracy_decimals: 1
+  #   filters:
+  #   - multiply: 0.1
+  #   skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Bat discharge Energy today"
+    address: 60
+    register_type: "read"
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Bat discharge Energy total"
+    address: 62
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC discharge Energy today"
+    address: 64
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC discharge Energy total"
+    address: 66
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Temperature"
+    address: 25
+    register_type: "read"
+    unit_of_measurement: "℃"
+    device_class: temperature
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} DcDc Temperature"
+    address: 26
+    register_type: "read"
+    unit_of_measurement: "℃"
+    device_class: temperature
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} LoadPercent"
+    address: 27
+    register_type: "read"
+    unit_of_measurement: "%"
+    device_class: temperature
+    icon: mdi:gauge
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Battery SOC"
+    address: 18
+    register_type: "read"
+    unit_of_measurement: "%"
+    device_class: battery
+    icon: mdi:battery
+    value_type: U_WORD
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Battery Voltage"
+    id: "${growatt4_device_name}_battery_voltage"
+    address: 17
+    register_type: "read"
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.01
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Battery Discharge Watts​"
+    address: 73
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} BMS SOC"
+    address: 93
+    register_type: "read"
+    unit_of_measurement: "%"
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_WORD
+  - platform: template
+    name: "${growatt4_device_name} Battery Charge Watts​"
+    unit_of_measurement: W
+    device_class: energy
+    icon: mdi:flash
+    update_interval: 2s
+    accuracy_decimals: 1
+    lambda: |-
+      float val = id(${growatt4_device_name}_battery_watts).state;
+      if (val < 0.0f) {
+        return fabs(val);
+      } else {
+        return 0.0f;
+      }
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC Charge Watts​"
+    address: 13
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: energy
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Battery Discharge VA"
+    address: 75
+    register_type: "read"
+    unit_of_measurement: A
+    device_class: current
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Battery Watts​"
+    id: "${growatt4_device_name}_battery_watts"
+    address: 77
+    register_type: "read"
+    unit_of_measurement: W
+    device_class: energy
+    icon: mdi:flash
+    value_type: S_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Fan speed of MPPT Charger"
+    address: 81
+    register_type: "read"
+    unit_of_measurement: "%"
+    device_class: temperature
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 0
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Fan speed of Inverter"
+    address: 82
+    register_type: "read"
+    unit_of_measurement: "%"
+    device_class: temperature
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 0
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Fault Bit"
+    address: 40
+    register_type: "read"
+    bitmask: 0x0001       # &*1 就是掩码 0x0001，取最低位
+    value_type: U_WORD
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Warning Bit"
+    address: 41
+    register_type: "read"
+    bitmask: 0x0001       # &*1 就是掩码 0x0001，取最低位
+    value_type: U_WORD
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Fault Value"
+    address: 42
+    register_type: "read"
+    value_type: U_WORD
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Warning Value"
+    address: 43
+    register_type: "read"
+    value_type: U_WORD
+  
+  # PV1加PV2功率
+  - platform: template
+    name: "${growatt4_device_name} Total PV power"
+    unit_of_measurement: "W"
+    accuracy_decimals: 1
+    icon: "mdi:solar-power"
+    lambda: |-
+      return id(${growatt4_device_name}_PV1_DcPower).state + id(${growatt4_device_name}_PV2_DcPower).state;
+    update_interval: 1s
+  - platform: template
+    name: "${growatt4_device_name} Battery Current"
+    unit_of_measurement: "A"
+    accuracy_decimals: 2
+    icon: mdi:flash
+    lambda: |-
+      return (-1 * id(${growatt4_device_name}_battery_watts).state) / id(${growatt4_device_name}_battery_voltage).state;
+    update_interval: 1s
+
+text_sensor:
+  - platform: template
+    name: "${growatt4_device_name} System Status Text"
+    update_interval: 5s
+    lambda: |-
+      int value = (int) id(${growatt4_device_name}_system_status).state;
+      if (value == 0) {
+        return {"待机"}; // Standby
+      } else if (value == 1) {
+        return {"未使用"}; // (No Use)
+      } else if (value == 2) {
+        return {"放电"}; // Discharge
+      } else if (value == 3) {
+        return {"故障"}; // Fault
+      } else if (value == 4) {
+        return {"闪充"}; // Flash
+      } else if (value == 5) {
+        return {"光伏充电"}; // PV charge
+      } else if (value == 6) {
+        return {"交流充电"}; // AC charge
+      } else if (value == 7) {
+        return {"组合充电"}; // Combine charge
+      } else if (value == 8) {
+        return {"组合充电及旁路"}; // Combine charge and Bypass
+      } else if (value == 9) {
+        return {"光伏充电及旁路"}; // PV charge and Bypass
+      } else if (value == 10) {
+        return {"交流充电及旁路"}; // AC charge and Bypass
+      } else if (value == 11) {
+        return {"旁路"}; // Bypass
+      } else if (value == 12) {
+        return {"光伏充放电"}; // PV charge and Discharge
+      } else if (value == 14) {
+        return {"光伏&电池联合"};
+      } else {
+        return { to_string(value) }; // Unknown
+      }
+  - platform: template
+    name: "${growatt4_device_name} Sys Time (readable)"
+    id: ${growatt4_device_name}_sys_time_readable
+    lambda: |-
+      if (isnan(id(${growatt4_device_name}_sys_time_year_set).state) ||
+          isnan(id(${growatt4_device_name}_sys_time_month_set).state) ||
+          isnan(id(${growatt4_device_name}_sys_time_day_set).state) ||
+          isnan(id(${growatt4_device_name}_sys_time_hour_set).state) ||
+          isnan(id(${growatt4_device_name}_sys_time_min_set).state) ||
+          isnan(id(${growatt4_device_name}_sys_time_second_set).state)) {
+        return std::string("unknown");
+      }
+      char buf[32];
+      sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d",
+        (int)id(${growatt4_device_name}_sys_time_year_set).state,
+        (int)id(${growatt4_device_name}_sys_time_month_set).state,
+        (int)id(${growatt4_device_name}_sys_time_day_set).state,
+        (int)id(${growatt4_device_name}_sys_time_hour_set).state,
+        (int)id(${growatt4_device_name}_sys_time_min_set).state,
+        (int)id(${growatt4_device_name}_sys_time_second_set).state);
+      return std::string(buf);
+    update_interval: 20s
+
+number:
+  # 最大充电电流
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Max Charge Current Set"
+    id: "${growatt4_device_name}_max_charge_current_set"
+    address: 34
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    min_value: 2
+    max_value: 280
+    step: 1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # 市电充电电流
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Float Charge Current Set"
+    id: "${growatt4_device_name}_float_charge_current_set"
+    address: 38
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    min_value: 0
+    max_value: 800
+    step: 1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # 大概率是强充电压（数据/10）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Bulk Charge Volt Set"
+    id: "${growatt4_device_name}_bulk_charge_volt_set"
+    address: 35
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    min_value: 0
+    max_value: 580
+    step: 1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # 浮充电压（数据/10）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Float Charge Volt Set"
+    id: "${growatt4_device_name}_float_charge_volt_set"
+    address: 36
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    min_value: 0
+    max_value: 570
+    step: 1
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # 切换回市电的电压（数据/10）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Bat Low Volt Switch To Uti Set"
+    id: "${growatt4_device_name}_bat_low_volt_switch_to_uti_set"
+    address: 37
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    min_value: 444
+    max_value: 514
+    step: 1
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  # modbus通讯地址
+  # - platform: modbus_controller
+  #   modbus_controller_id: ${growatt4_modbus_controller_id}
+  #   name: "${growatt4_device_name} Communicate  address"
+  #   address: 30
+  #   register_type: holding
+  #   value_type: U_WORD
+  #   min_value: 1
+  #   max_value: 254
+  #   step: 1
+  #   mode: box
+  # 以下几个是设置系统时间的传感器，不显示在传感器列表
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    # internal: true           # 可显式写 internal: true 或直接不写 name（只写 id）
+    id: ${growatt4_device_name}_sys_time_year_set
+    address: 45
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: ${growatt4_device_name}_sys_time_month_set
+    address: 46
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: ${growatt4_device_name}_sys_time_day_set
+    address: 47
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: ${growatt4_device_name}_sys_time_hour_set
+    address: 48
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: ${growatt4_device_name}_sys_time_min_set
+    address: 49
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    id: ${growatt4_device_name}_sys_time_second_set
+    address: 50
+    register_type: holding
+    value_type: U_WORD
+    mode: box
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} AC Output Set"
+    address: 1                          # 寄存器位置 0x0001
+    value_type: U_WORD                 # 16 位无符号整数
+    optionsmap:                         # 将下拉选项和数值一一映射
+      "电池优先": 0
+      "光伏优先": 1
+      "市电优先": 2
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Charge Source Set"
+    id: "${growatt4_device_name}_charge_source_set"
+    address: 2
+    value_type: U_WORD
+    optionsmap:
+      "光伏优先": 0
+      "光伏和市电" : 1
+      "仅光伏": 2
+    skip_updates: ${growatt4_control_params_skip_updates}
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt4_modbus_controller_id}
+    name: "${growatt4_device_name} Output Volt Type Set"
+    id: "${growatt4_device_name}_output_volt_type_set"
+    address: 18
+    value_type: U_WORD
+    optionsmap:
+      "208V": 0
+      "230V" : 1
+      "240V": 2
+    skip_updates: ${growatt4_control_params_skip_updates}
+
+switch:
+  - platform: template
+    name: "${growatt4_device_name} Write Current Time to Modbus"
+    id: "${growatt4_device_name}_write_current_time_to_modbus"
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          auto t = id(esptime).now();
+          uint16_t year   = t.year;
+          uint16_t month  = t.month;
+          uint16_t day    = t.day_of_month;
+          uint16_t hour   = t.hour;
+          uint16_t minute = t.minute;
+          uint16_t second = t.second;
+
+          ESP_LOGD("time_write", "Will write %04u-%02u-%02u %02u:%02u:%02u",
+                   year, month, day, hour, minute, second);
+
+          std::vector<uint16_t> vals;
+          vals.push_back(year);
+          vals.push_back(month);
+          vals.push_back(day);
+          vals.push_back(hour);
+          vals.push_back(minute);
+          vals.push_back(second);
+
+          // 创建写多个寄存器命令（start address = 45）
+          uint16_t start_address = 45;
+          uint16_t quantity = static_cast<uint16_t>(vals.size());
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(
+                        id(${growatt4_modbus_controller_id}), start_address, quantity, vals);
+          // 把命令入队（ModbusController 会在合适时间发送）
+          id(${growatt4_modbus_controller_id})->queue_command(cmd);
+          ESP_LOGI("time_write", "Queued write-multiple-registers command");
+          
+      - delay: 500ms
+      - switch.turn_off: "${growatt4_device_name}_write_current_time_to_modbus"
