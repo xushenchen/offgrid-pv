@@ -1,0 +1,175 @@
+substitutions:
+  bms6: "bms6"
+  bms6_mac_address: C8:47:80:2B:83:85
+  bms6_protocol_version: JK02_32S
+
+ble_client:
+  - mac_address: ${bms6_mac_address}
+    id: "${bms6}_client"
+    
+jk_bms_ble:
+  - ble_client_id: "${bms6}_client"
+    protocol_version: ${bms6_protocol_version}
+    throttle: 500ms
+    id: "${bms6}_client_ble"
+
+binary_sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms6}_client_ble"
+    balancing:
+      name: "${bms6} balancing"
+    charging:
+      name: "${bms6} charging"
+    discharging:
+      name: "${bms6} discharging"
+    heating:
+      name: "${bms6} heating"
+    online_status:
+      name: "${bms6} online status"
+
+sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms6}_client_ble"
+    min_cell_voltage:
+      name: "${bms6} min cell voltage"
+    max_cell_voltage:
+      name: "${bms6} max cell voltage"
+    min_voltage_cell:
+      name: "${bms6} min voltage cell"
+    max_voltage_cell:
+      name: "${bms6} max voltage cell"
+    delta_cell_voltage:
+      name: "${bms6} delta cell voltage"
+    average_cell_voltage:
+      name: "${bms6} average cell voltage"
+    cell_voltage_1:
+      name: "${bms6} cell voltage 1"
+    cell_voltage_2:
+      name: "${bms6} cell voltage 2"
+    cell_voltage_3:
+      name: "${bms6} cell voltage 3"
+    cell_voltage_4:
+      name: "${bms6} cell voltage 4"
+    cell_voltage_5:
+      name: "${bms6} cell voltage 5"
+    cell_voltage_6:
+      name: "${bms6} cell voltage 6"
+    cell_voltage_7:
+      name: "${bms6} cell voltage 7"
+    cell_voltage_8:
+      name: "${bms6} cell voltage 8"
+    cell_voltage_9:
+      name: "${bms6} cell voltage 9"
+    cell_voltage_10:
+      name: "${bms6} cell voltage 10"
+    cell_voltage_11:
+      name: "${bms6} cell voltage 11"
+    cell_voltage_12:
+      name: "${bms6} cell voltage 12"
+    cell_voltage_13:
+      name: "${bms6} cell voltage 13"
+    cell_voltage_14:
+      name: "${bms6} cell voltage 14"
+    cell_voltage_15:
+      name: "${bms6} cell voltage 15"
+    cell_voltage_16:
+      name: "${bms6} cell voltage 16"
+    cell_resistance_1:
+      name: "${bms6} cell resistance 1"
+    cell_resistance_2:
+      name: "${bms6} cell resistance 2"
+    cell_resistance_3:
+      name: "${bms6} cell resistance 3"
+    cell_resistance_4:
+      name: "${bms6} cell resistance 4"
+    cell_resistance_5:
+      name: "${bms6} cell resistance 5"
+    cell_resistance_6:
+      name: "${bms6} cell resistance 6"
+    cell_resistance_7:
+      name: "${bms6} cell resistance 7"
+    cell_resistance_8:
+      name: "${bms6} cell resistance 8"
+    cell_resistance_9:
+      name: "${bms6} cell resistance 9"
+    cell_resistance_10:
+      name: "${bms6} cell resistance 10"
+    cell_resistance_11:
+      name: "${bms6} cell resistance 11"
+    cell_resistance_12:
+      name: "${bms6} cell resistance 12"
+    cell_resistance_13:
+      name: "${bms6} cell resistance 13"
+    cell_resistance_14:
+      name: "${bms6} cell resistance 14"
+    cell_resistance_15:
+      name: "${bms6} cell resistance 15"
+    cell_resistance_16:
+      name: "${bms6} cell resistance 16"
+    total_voltage:
+      name: "${bms6} total voltage"
+    current:
+      name: "${bms6} current"
+    heating_current:
+      name: "${bms6} heating current"
+    power:
+      name: "${bms6} power"
+    charging_power:
+      name: "${bms6} charging power"
+    discharging_power:
+      name: "${bms6} discharging power"
+    temperature_sensor_1:
+      name: "${bms6} temperature sensor 1"
+    temperature_sensor_2:
+      name: "${bms6} temperature sensor 2"
+    temperature_sensor_3:
+      name: "${bms6} temperature sensor 3"
+    temperature_sensor_4:
+      name: "${bms6} temperature sensor 4"
+    power_tube_temperature:
+      name: "${bms6} power tube temperature"
+    balancing:
+      name: "${bms6} balancing"
+    state_of_charge:
+      name: "${bms6} state of charge"
+    capacity_remaining:
+      name: "${bms6} capacity remaining"
+    total_battery_capacity_setting:
+      name: "${bms6} total battery capacity setting"
+    charging_cycles:
+      name: "${bms6} charging cycles"
+    total_charging_cycle_capacity:
+      name: "${bms6} total charging cycle capacity"
+    total_runtime:
+      name: "${bms6} total runtime"
+    balancing_current:
+      name: "${bms6} balancing current"
+    errors_bitmask:
+      name: "${bms6} errors bitmask"
+
+
+switch:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms6}_client_ble"
+    charging:
+      name: "${bms6} charging"
+    discharging:
+      name: "${bms6} discharging"
+    balancer:
+      name: "${bms6} balancer"
+
+  - platform: ble_client
+    ble_client_id: "${bms6}_client"
+    id: ${bms6}_ble_client_switch
+    name: "${bms6} enable bluetooth connection"
+
+
+
+
+text_sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms6}_client_ble"
+    errors:
+      name: "${bms6} errors"
+    total_runtime_formatted:
+      name: "${bms6} total runtime formatted"
