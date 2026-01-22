@@ -1,0 +1,243 @@
+substitutions:
+  bms10: "bms10"
+  bms10_mac_address: C8:47:80:2B:83:85
+  bms10_protocol_version: JK02_32S
+
+ble_client:
+  - mac_address: ${bms10_mac_address}
+    id: "${bms10}_client"
+    
+jk_bms_ble:
+  - ble_client_id: "${bms10}_client"
+    protocol_version: ${bms10_protocol_version}
+    throttle: 500ms
+    id: "${bms10}_client_ble"
+
+binary_sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    balancing:
+      name: "${bms10} balancing"
+    charging:
+      name: "${bms10} charging"
+    discharging:
+      name: "${bms10} discharging"
+    heating:
+      name: "${bms10} heating"
+    online_status:
+      name: "${bms10} online status"
+
+button:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    retrieve_settings:
+      name: "${bms10} retrieve settings"
+    retrieve_device_info:
+      name: "${bms10} retrieve device info"
+
+number:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    balance_trigger_voltage:
+      name: "${bms10} balance trigger voltage"
+    cell_count:
+      name: "${bms10} cell count"
+    total_battery_capacity:
+      name: "${bms10} total battery capacity"
+    cell_voltage_overvoltage_protection:
+      name: "${bms10} cell voltage overvoltage protection"
+    cell_voltage_overvoltage_recovery:
+      name: "${bms10} cell voltage overvoltage recovery"
+    cell_voltage_undervoltage_protection:
+      name: "${bms10} cell voltage undervoltage protection"
+    cell_voltage_undervoltage_recovery:
+      name: "${bms10} cell voltage undervoltage recovery"
+    balance_starting_voltage:
+      name: "${bms10} balance starting voltage"
+    voltage_calibration:
+      name: "${bms10} voltage calibration"
+    current_calibration:
+      name: "${bms10} current calibration"
+    power_off_voltage:
+      name: "${bms10} power off voltage"
+    max_balance_current:
+      name: "${bms10} max balance current"
+    max_charge_current:
+      name: "${bms10} max charge current"
+    max_discharge_current:
+      name: "${bms10} max discharge current"
+    charge_overcurrent_protection_delay:
+      name: "${bms10} charge overcurrent protection delay"
+    charge_overcurrent_protection_recovery_time:
+      name: "${bms10} charge overcurrent protection recovery time"
+    discharge_overcurrent_protection_delay:
+      name: "${bms10} discharge overcurrent protection delay"
+    discharge_overcurrent_protection_recovery_time:
+      name: "${bms10} discharge overcurrent protection recovery time"
+    short_circuit_protection_delay:
+      name: "${bms10} short circuit protection delay"
+    short_circuit_protection_recovery_time:
+      name: "${bms10} short circuit protection recovery time"
+    charge_overtemperature_protection:
+      name: "${bms10} charge overtemperature protection"
+    charge_overtemperature_protection_recovery:
+      name: "${bms10} charge overtemperature protection recovery"
+    discharge_overtemperature_protection:
+      name: "${bms10} discharge overtemperature protection"
+    discharge_overtemperature_protection_recovery:
+      name: "${bms10} discharge overtemperature protection recovery"
+    charge_undertemperature_protection:
+      name: "${bms10} charge undertemperature protection"
+    charge_undertemperature_protection_recovery:
+      name: "${bms10} charge undertemperature protection recovery"
+    power_tube_overtemperature_protection:
+      name: "${bms10} power tube overtemperature protection"
+    power_tube_overtemperature_protection_recovery:
+      name: "${bms10} power tube overtemperature protection recovery"
+
+sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    min_cell_voltage:
+      name: "${bms10} min cell voltage"
+    max_cell_voltage:
+      name: "${bms10} max cell voltage"
+    min_voltage_cell:
+      name: "${bms10} min voltage cell"
+    max_voltage_cell:
+      name: "${bms10} max voltage cell"
+    delta_cell_voltage:
+      name: "${bms10} delta cell voltage"
+    average_cell_voltage:
+      name: "${bms10} average cell voltage"
+    cell_voltage_1:
+      name: "${bms10} cell voltage 1"
+    cell_voltage_2:
+      name: "${bms10} cell voltage 2"
+    cell_voltage_3:
+      name: "${bms10} cell voltage 3"
+    cell_voltage_4:
+      name: "${bms10} cell voltage 4"
+    cell_voltage_5:
+      name: "${bms10} cell voltage 5"
+    cell_voltage_6:
+      name: "${bms10} cell voltage 6"
+    cell_voltage_7:
+      name: "${bms10} cell voltage 7"
+    cell_voltage_8:
+      name: "${bms10} cell voltage 8"
+    cell_voltage_9:
+      name: "${bms10} cell voltage 9"
+    cell_voltage_10:
+      name: "${bms10} cell voltage 10"
+    cell_voltage_11:
+      name: "${bms10} cell voltage 11"
+    cell_voltage_12:
+      name: "${bms10} cell voltage 12"
+    cell_voltage_13:
+      name: "${bms10} cell voltage 13"
+    cell_voltage_14:
+      name: "${bms10} cell voltage 14"
+    cell_voltage_15:
+      name: "${bms10} cell voltage 15"
+    cell_voltage_16:
+      name: "${bms10} cell voltage 16"
+    cell_resistance_1:
+      name: "${bms10} cell resistance 1"
+    cell_resistance_2:
+      name: "${bms10} cell resistance 2"
+    cell_resistance_3:
+      name: "${bms10} cell resistance 3"
+    cell_resistance_4:
+      name: "${bms10} cell resistance 4"
+    cell_resistance_5:
+      name: "${bms10} cell resistance 5"
+    cell_resistance_6:
+      name: "${bms10} cell resistance 6"
+    cell_resistance_7:
+      name: "${bms10} cell resistance 7"
+    cell_resistance_8:
+      name: "${bms10} cell resistance 8"
+    cell_resistance_9:
+      name: "${bms10} cell resistance 9"
+    cell_resistance_10:
+      name: "${bms10} cell resistance 10"
+    cell_resistance_11:
+      name: "${bms10} cell resistance 11"
+    cell_resistance_12:
+      name: "${bms10} cell resistance 12"
+    cell_resistance_13:
+      name: "${bms10} cell resistance 13"
+    cell_resistance_14:
+      name: "${bms10} cell resistance 14"
+    cell_resistance_15:
+      name: "${bms10} cell resistance 15"
+    cell_resistance_16:
+      name: "${bms10} cell resistance 16"
+    total_voltage:
+      name: "${bms10} total voltage"
+    current:
+      name: "${bms10} current"
+    heating_current:
+      name: "${bms10} heating current"
+    power:
+      name: "${bms10} power"
+    charging_power:
+      name: "${bms10} charging power"
+    discharging_power:
+      name: "${bms10} discharging power"
+    temperature_sensor_1:
+      name: "${bms10} temperature sensor 1"
+    temperature_sensor_2:
+      name: "${bms10} temperature sensor 2"
+    temperature_sensor_3:
+      name: "${bms10} temperature sensor 3"
+    temperature_sensor_4:
+      name: "${bms10} temperature sensor 4"
+    power_tube_temperature:
+      name: "${bms10} power tube temperature"
+    balancing:
+      name: "${bms10} balancing"
+    state_of_charge:
+      name: "${bms10} state of charge"
+    capacity_remaining:
+      name: "${bms10} capacity remaining"
+    total_battery_capacity_setting:
+      name: "${bms10} total battery capacity setting"
+    charging_cycles:
+      name: "${bms10} charging cycles"
+    total_charging_cycle_capacity:
+      name: "${bms10} total charging cycle capacity"
+    total_runtime:
+      name: "${bms10} total runtime"
+    balancing_current:
+      name: "${bms10} balancing current"
+    errors_bitmask:
+      name: "${bms10} errors bitmask"
+
+
+switch:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    charging:
+      name: "${bms10} charging"
+    discharging:
+      name: "${bms10} discharging"
+    balancer:
+      name: "${bms10} balancer"
+
+  - platform: ble_client
+    ble_client_id: "${bms10}_client"
+    id: ${bms10}_ble_client_switch
+    name: "${bms10} enable bluetooth connection"
+
+
+
+
+text_sensor:
+  - platform: jk_bms_ble
+    jk_bms_ble_id: "${bms10}_client_ble"
+    errors:
+      name: "${bms10} errors"
+    total_runtime_formatted:
+      name: "${bms10} total runtime formatted"
