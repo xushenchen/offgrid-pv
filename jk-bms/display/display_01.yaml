@@ -70,10 +70,6 @@ sensor:
       name: "${bms0} temperature sensor 1"
     temperature_sensor_2:
       name: "${bms0} temperature sensor 2"
-    temperature_sensor_3:
-      name: "${bms0} temperature sensor 3"
-    temperature_sensor_4:
-      name: "${bms0} temperature sensor 4"
     total_voltage:
       name: "${bms0} total voltage"
     current:
