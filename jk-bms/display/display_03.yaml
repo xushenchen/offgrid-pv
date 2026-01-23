@@ -1,0 +1,214 @@
+substitutions:
+  bms2: "bms2"
+
+binary_sensor:
+  - platform: jk_bms
+    jk_bms_id: ${bms2}
+    balancing:
+      name: "${bms2} balancing"
+    balancing_switch:
+      name: "${bms2} balancing switch"
+    charging:
+      name: "${bms2} charging"
+    discharging:
+      name: "${bms2} discharging"
+    dedicated_charger_switch:
+      name: "${bms2} dedicated charger switch"
+    online_status:
+      name: "${bms2} online status"
+
+sensor:
+  - platform: jk_bms
+    jk_bms_id: ${bms2}
+    min_cell_voltage:
+      name: "${bms2} min cell voltage"
+    max_cell_voltage:
+      name: "${bms2} max cell voltage"
+    min_voltage_cell:
+      name: "${bms2} min voltage cell"
+    max_voltage_cell:
+      name: "${bms2} max voltage cell"
+    delta_cell_voltage:
+      name: "${bms2} delta cell voltage"
+    average_cell_voltage:
+      name: "${bms2} average cell voltage"
+    cell_voltage_1:
+      name: "${bms2} cell voltage 1"
+    cell_voltage_2:
+      name: "${bms2} cell voltage 2"
+    cell_voltage_3:
+      name: "${bms2} cell voltage 3"
+    cell_voltage_4:
+      name: "${bms2} cell voltage 4"
+    cell_voltage_5:
+      name: "${bms2} cell voltage 5"
+    cell_voltage_6:
+      name: "${bms2} cell voltage 6"
+    cell_voltage_7:
+      name: "${bms2} cell voltage 7"
+    cell_voltage_8:
+      name: "${bms2} cell voltage 8"
+    cell_voltage_9:
+      name: "${bms2} cell voltage 9"
+    cell_voltage_10:
+      name: "${bms2} cell voltage 10"
+    cell_voltage_11:
+      name: "${bms2} cell voltage 11"
+    cell_voltage_12:
+      name: "${bms2} cell voltage 12"
+    cell_voltage_13:
+      name: "${bms2} cell voltage 13"
+    cell_voltage_14:
+      name: "${bms2} cell voltage 14"
+    cell_voltage_15:
+      name: "${bms2} cell voltage 15"
+    cell_voltage_16:
+      name: "${bms2} cell voltage 16"
+    cell_voltage_17:
+      name: "${bms2} cell voltage 17"
+    cell_voltage_18:
+      name: "${bms2} cell voltage 18"
+    cell_voltage_19:
+      name: "${bms2} cell voltage 19"
+    cell_voltage_20:
+      name: "${bms2} cell voltage 20"
+    cell_voltage_21:
+      name: "${bms2} cell voltage 21"
+    cell_voltage_22:
+      name: "${bms2} cell voltage 22"
+    cell_voltage_23:
+      name: "${bms2} cell voltage 23"
+    cell_voltage_24:
+      name: "${bms2} cell voltage 24"
+    power_tube_temperature:
+      name: "${bms2} power tube temperature"
+    temperature_sensor_1:
+      name: "${bms2} temperature sensor 1"
+    temperature_sensor_2:
+      name: "${bms2} temperature sensor 2"
+    total_voltage:
+      name: "${bms2} total voltage"
+    current:
+      name: "${bms2} current"
+    power:
+      name: "${bms2} power"
+    charging_power:
+      name: "${bms2} charging power"
+    discharging_power:
+      name: "${bms2} discharging power"
+    capacity_remaining:
+      name: "${bms2} capacity remaining"
+    capacity_remaining_derived:
+      name: "${bms2} capacity remaining derived"
+    temperature_sensors:
+      name: "${bms2} temperature sensors"
+    charging_cycles:
+      name: "${bms2} charging cycles"
+    total_charging_cycle_capacity:
+      name: "${bms2} total charging cycle capacity"
+    battery_strings:
+      name: "${bms2} battery strings"
+    errors_bitmask:
+      name: "${bms2} errors bitmask"
+    operation_mode_bitmask:
+      name: "${bms2} operation mode bitmask"
+    total_voltage_overvoltage_protection:
+      name: "${bms2} total voltage overvoltage protection"
+    total_voltage_undervoltage_protection:
+      name: "${bms2} total voltage undervoltage protection"
+    cell_voltage_overvoltage_protection:
+      name: "${bms2} cell voltage overvoltage protection"
+    cell_voltage_overvoltage_recovery:
+      name: "${bms2} cell voltage overvoltage recovery"
+    cell_voltage_overvoltage_delay:
+      name: "${bms2} cell voltage overvoltage delay"
+    cell_voltage_undervoltage_protection:
+      name: "${bms2} cell voltage undervoltage protection"
+    cell_voltage_undervoltage_recovery:
+      name: "${bms2} cell voltage undervoltage recovery"
+    cell_voltage_undervoltage_delay:
+      name: "${bms2} cell voltage undervoltage delay"
+    cell_pressure_difference_protection:
+      name: "${bms2} cell pressure difference protection"
+    discharging_overcurrent_protection:
+      name: "${bms2} discharging overcurrent protection"
+    discharging_overcurrent_delay:
+      name: "${bms2} discharging overcurrent delay"
+    charging_overcurrent_protection:
+      name: "${bms2} charging overcurrent protection"
+    charging_overcurrent_delay:
+      name: "${bms2} charging overcurrent delay"
+    balance_starting_voltage:
+      name: "${bms2} balance starting voltage"
+    balance_opening_pressure_difference:
+      name: "${bms2} balance opening pressure difference"
+    power_tube_temperature_protection:
+      name: "${bms2} power tube temperature protection"
+    power_tube_temperature_recovery:
+      name: "${bms2} power tube temperature recovery"
+    temperature_sensor_temperature_protection:
+      name: "${bms2} temperature sensor temperature protection"
+    temperature_sensor_temperature_recovery:
+      name: "${bms2} temperature sensor temperature recovery"
+    temperature_sensor_temperature_difference_protection:
+      name: "${bms2} temperature sensor temperature difference protection"
+    charging_high_temperature_protection:
+      name: "${bms2} charging high temperature protection"
+    discharging_high_temperature_protection:
+      name: "${bms2} discharging high temperature protection"
+    charging_low_temperature_protection:
+      name: "${bms2} charging low temperature protection"
+    charging_low_temperature_recovery:
+      name: "${bms2} charging low temperature recovery"
+    discharging_low_temperature_protection:
+      name: "${bms2} discharging low temperature protection"
+    discharging_low_temperature_recovery:
+      name: "${bms2} discharging low temperature recovery"
+    total_battery_capacity_setting:
+      name: "${bms2} total battery capacity setting"
+    current_calibration:
+      name: "${bms2} current calibration"
+    device_address:
+      name: "${bms2} device address"
+    sleep_wait_time:
+      name: "${bms2} sleep wait time"
+    alarm_low_volume:
+      name: "${bms2} alarm low volume"
+    manufacturing_date:
+      name: "${bms2} manufacturing date"
+    total_runtime:
+      name: "${bms2} total runtime"
+#    start_current_calibration:
+#      name: "${bms2} start current calibration"
+    actual_battery_capacity:
+      name: "${bms2} actual battery capacity"
+#    protocol_version:
+#      name: "${bms2} protocol version"
+
+switch:
+  - platform: jk_bms
+    jk_bms_id: ${bms2}
+    charging:
+      name: "${bms2} charging"
+    discharging:
+      name: "${bms2} discharging"
+
+text_sensor:
+  - platform: jk_bms
+    jk_bms_id: ${bms2}
+    errors:
+      name: "${bms2} errors"
+    operation_mode:
+      name: "${bms2} operation mode"
+    battery_type:
+      name: "${bms2} battery type"
+    password:
+      name: "${bms2} password"
+    device_type:
+      name: "${bms2} device type"
+    software_version:
+      name: "${bms2} software version"
+    manufacturer:
+      name: "${bms2} manufacturer"
+    total_runtime_formatted:
+      name: "${bms2} total runtime formatted"
