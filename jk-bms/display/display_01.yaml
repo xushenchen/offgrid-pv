@@ -64,28 +64,16 @@ sensor:
       name: "${bms0} cell voltage 15"
     cell_voltage_16:
       name: "${bms0} cell voltage 16"
-    cell_voltage_17:
-      name: "${bms0} cell voltage 17"
-    cell_voltage_18:
-      name: "${bms0} cell voltage 18"
-    cell_voltage_19:
-      name: "${bms0} cell voltage 19"
-    cell_voltage_20:
-      name: "${bms0} cell voltage 20"
-    cell_voltage_21:
-      name: "${bms0} cell voltage 21"
-    cell_voltage_22:
-      name: "${bms0} cell voltage 22"
-    cell_voltage_23:
-      name: "${bms0} cell voltage 23"
-    cell_voltage_24:
-      name: "${bms0} cell voltage 24"
     power_tube_temperature:
       name: "${bms0} power tube temperature"
     temperature_sensor_1:
       name: "${bms0} temperature sensor 1"
     temperature_sensor_2:
       name: "${bms0} temperature sensor 2"
+    temperature_sensor_3:
+      name: "${bms0} temperature sensor 3"
+    temperature_sensor_4:
+      name: "${bms0} temperature sensor 4"
     total_voltage:
       name: "${bms0} total voltage"
     current:
