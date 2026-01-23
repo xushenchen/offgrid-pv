@@ -1293,7 +1293,7 @@ sensor:
     response_size: 4
     disabled_by_default: true
     on_value:
-      - component.update: alarms
+      - component.update: ${bms0}_alarms
 
   # 0x12A4   164    INT16    2    R    BalanCurrent    mA
   - platform: modbus_controller
