@@ -41,7 +41,7 @@ sensor:
 
 # 电压
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_u"
     register_type: holding
     address: 0x16e
@@ -53,7 +53,7 @@ sensor:
     filters:
       - multiply: 0.0001
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_u"
     register_type: holding
     address: 0x170
@@ -65,7 +65,7 @@ sensor:
     filters:
       - multiply: 0.0001
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_u"
     register_type: holding
     address: 0x172
@@ -79,7 +79,7 @@ sensor:
 
 # 电流
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_i"
     register_type: holding
     address: 0x174
@@ -91,7 +91,7 @@ sensor:
     filters:
       - multiply: 0.0001
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_i"
     register_type: holding
     address: 0x176
@@ -103,7 +103,7 @@ sensor:
     filters:
       - multiply: 0.0001
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_i"
     register_type: holding
     address: 0x178
@@ -118,7 +118,7 @@ sensor:
 # 有功功率
   # 瞬间有功功率
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_p"
     id: "${yada_3366_1_3_name}_p"
     register_type: holding
@@ -132,7 +132,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_p"
     id: "${yada_3366_1_3_name}_a_p"
     register_type: holding
@@ -146,7 +146,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_p"
     id: "${yada_3366_1_3_name}_b_p"
     register_type: holding
@@ -160,7 +160,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_p"
     id: "${yada_3366_1_3_name}_c_p"
     register_type: holding
@@ -175,7 +175,7 @@ sensor:
 # 无功功率
   # 瞬时总无功有功率
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_q"
     register_type: holding
     address: 0x182
@@ -188,7 +188,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_q"
     register_type: holding
     address: 0x184
@@ -201,7 +201,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_q"
     register_type: holding
     address: 0x186
@@ -214,7 +214,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_q"
     register_type: holding
     address: 0x188
@@ -229,7 +229,7 @@ sensor:
 # 视在功率
   # 瞬间视在功率
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_s"
     register_type: holding
     address: 0x18a
@@ -242,7 +242,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_s"
     register_type: holding
     address: 0x18c
@@ -255,7 +255,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_s"
     register_type: holding
     address: 0x18e
@@ -268,7 +268,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_s"
     register_type: holding
     address: 0x190
@@ -283,7 +283,7 @@ sensor:
 # 功率因数
   # 总功率因数
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_pf"
     register_type: holding
     address: 0x192
@@ -294,7 +294,7 @@ sensor:
       - multiply: 0.001
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_pf"
     register_type: holding
     address: 0x193
@@ -305,7 +305,7 @@ sensor:
       - multiply: 0.001
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_pf"
     register_type: holding
     address: 0x194
@@ -316,7 +316,7 @@ sensor:
       - multiply: 0.001
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_pf"
     register_type: holding
     address: 0x195
@@ -328,7 +328,7 @@ sensor:
 
 # 相角
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_a_pa"
     register_type: holding
     address: 0x196
@@ -339,7 +339,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_b_pa"
     register_type: holding
     address: 0x197
@@ -350,7 +350,7 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_c_pa"
     register_type: holding
     address: 0x198
@@ -362,7 +362,7 @@ sensor:
 
 # 频率
   - platform: modbus_controller
-    modbus_controller_id: ${yada_3366_1_modbus_controller}
+    modbus_controller_id: ${yada_3366_3_modbus_controller}
     name: "${yada_3366_1_3_name}_freq"
     register_type: holding
     address: 0x199
