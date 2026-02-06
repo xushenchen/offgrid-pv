@@ -232,7 +232,6 @@ sensor:
     name: "${yada_3366_1_1_name}_pf"
     register_type: holding
     address: 0x192
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: cosφ
@@ -244,7 +243,6 @@ sensor:
     name: "${yada_3366_1_1_name}_a_pf"
     register_type: holding
     address: 0x193
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: cosφ
@@ -256,7 +254,6 @@ sensor:
     name: "${yada_3366_1_1_name}_b_pf"
     register_type: holding
     address: 0x194
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: cosφ
@@ -268,7 +265,6 @@ sensor:
     name: "${yada_3366_1_1_name}_c_pf"
     register_type: holding
     address: 0x195
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: cosφ
@@ -281,7 +277,6 @@ sensor:
     name: "${yada_3366_1_1_name}_a_pa"
     register_type: holding
     address: 0x196
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: φ
@@ -293,7 +288,6 @@ sensor:
     name: "${yada_3366_1_1_name}_b_pa"
     register_type: holding
     address: 0x197
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: φ
@@ -305,7 +299,6 @@ sensor:
     name: "${yada_3366_1_1_name}_c_pa"
     register_type: holding
     address: 0x198
-    register_count: 2
     value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: φ
@@ -318,8 +311,7 @@ sensor:
     name: "${yada_3366_1_1_name}_freq"
     register_type: holding
     address: 0x199
-    register_count: 2
-    value_type: S_DWORD
+    value_type: S_WORD
     accuracy_decimals: 2
     unit_of_measurement: Hz
     filters:
