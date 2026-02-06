@@ -1,37 +1,37 @@
 substitutions:
-  yada_3366_1_1_name: meter_1_1
-  yada_3366_1_modbus_controller: meter_1_modbus_controller
+  yada_3366_1_3_name: meter_1_3
+  yada_3366_3_modbus_controller: meter_3_modbus_controller
 
 globals:
-  - id: ${yada_3366_1_1_name}_month_energy_sum
+  - id: ${yada_3366_1_3_name}_month_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_yesterday_energy_sum
+  - id: ${yada_3366_1_3_name}_yesterday_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_a_month_energy_sum
+  - id: ${yada_3366_1_3_name}_a_month_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_a_yesterday_energy_sum
+  - id: ${yada_3366_1_3_name}_a_yesterday_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_b_month_energy_sum
+  - id: ${yada_3366_1_3_name}_b_month_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_b_yesterday_energy_sum
+  - id: ${yada_3366_1_3_name}_b_yesterday_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_c_month_energy_sum
+  - id: ${yada_3366_1_3_name}_c_month_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
-  - id: ${yada_3366_1_1_name}_c_yesterday_energy_sum
+  - id: ${yada_3366_1_3_name}_c_yesterday_energy_sum
     type: float
     restore_value: true
     initial_value: '0.0'
@@ -42,7 +42,7 @@ sensor:
 # 电压
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_u"
+    name: "${yada_3366_1_3_name}_a_u"
     register_type: holding
     address: 0x16e
     register_count: 2
@@ -54,7 +54,7 @@ sensor:
       - multiply: 0.0001
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_u"
+    name: "${yada_3366_1_3_name}_b_u"
     register_type: holding
     address: 0x170
     register_count: 2
@@ -66,7 +66,7 @@ sensor:
       - multiply: 0.0001
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_u"
+    name: "${yada_3366_1_3_name}_c_u"
     register_type: holding
     address: 0x172
     register_count: 2
@@ -80,7 +80,7 @@ sensor:
 # 电流
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_i"
+    name: "${yada_3366_1_3_name}_a_i"
     register_type: holding
     address: 0x174
     register_count: 2
@@ -92,7 +92,7 @@ sensor:
       - multiply: 0.0001
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_i"
+    name: "${yada_3366_1_3_name}_b_i"
     register_type: holding
     address: 0x176
     register_count: 2
@@ -104,7 +104,7 @@ sensor:
       - multiply: 0.0001
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_i"
+    name: "${yada_3366_1_3_name}_c_i"
     register_type: holding
     address: 0x178
     register_count: 2
@@ -119,8 +119,8 @@ sensor:
   # 瞬间有功功率
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_p"
-    id: "${yada_3366_1_1_name}_p"
+    name: "${yada_3366_1_3_name}_p"
+    id: "${yada_3366_1_3_name}_p"
     register_type: holding
     address: 0x17a
     register_count: 2
@@ -133,8 +133,8 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_p"
-    id: "${yada_3366_1_1_name}_a_p"
+    name: "${yada_3366_1_3_name}_a_p"
+    id: "${yada_3366_1_3_name}_a_p"
     register_type: holding
     address: 0x17c
     register_count: 2
@@ -147,8 +147,8 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_p"
-    id: "${yada_3366_1_1_name}_b_p"
+    name: "${yada_3366_1_3_name}_b_p"
+    id: "${yada_3366_1_3_name}_b_p"
     register_type: holding
     address: 0x17e
     register_count: 2
@@ -161,8 +161,8 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_p"
-    id: "${yada_3366_1_1_name}_c_p"
+    name: "${yada_3366_1_3_name}_c_p"
+    id: "${yada_3366_1_3_name}_c_p"
     register_type: holding
     address: 0x180
     register_count: 2
@@ -176,7 +176,7 @@ sensor:
   # 瞬时总无功有功率
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_q"
+    name: "${yada_3366_1_3_name}_q"
     register_type: holding
     address: 0x182
     register_count: 2
@@ -189,7 +189,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_q"
+    name: "${yada_3366_1_3_name}_a_q"
     register_type: holding
     address: 0x184
     register_count: 2
@@ -202,7 +202,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_q"
+    name: "${yada_3366_1_3_name}_b_q"
     register_type: holding
     address: 0x186
     register_count: 2
@@ -215,7 +215,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_q"
+    name: "${yada_3366_1_3_name}_c_q"
     register_type: holding
     address: 0x188
     register_count: 2
@@ -230,7 +230,7 @@ sensor:
   # 瞬间视在功率
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_s"
+    name: "${yada_3366_1_3_name}_s"
     register_type: holding
     address: 0x18a
     register_count: 2
@@ -243,7 +243,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_s"
+    name: "${yada_3366_1_3_name}_a_s"
     register_type: holding
     address: 0x18c
     register_count: 2
@@ -256,7 +256,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_s"
+    name: "${yada_3366_1_3_name}_b_s"
     register_type: holding
     address: 0x18e
     register_count: 2
@@ -269,7 +269,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_s"
+    name: "${yada_3366_1_3_name}_c_s"
     register_type: holding
     address: 0x190
     register_count: 2
@@ -284,7 +284,7 @@ sensor:
   # 总功率因数
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_pf"
+    name: "${yada_3366_1_3_name}_pf"
     register_type: holding
     address: 0x192
     value_type: S_WORD
@@ -295,7 +295,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_pf"
+    name: "${yada_3366_1_3_name}_a_pf"
     register_type: holding
     address: 0x193
     value_type: S_WORD
@@ -306,7 +306,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_pf"
+    name: "${yada_3366_1_3_name}_b_pf"
     register_type: holding
     address: 0x194
     value_type: S_WORD
@@ -317,7 +317,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_pf"
+    name: "${yada_3366_1_3_name}_c_pf"
     register_type: holding
     address: 0x195
     value_type: S_WORD
@@ -329,7 +329,7 @@ sensor:
 # 相角
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_a_pa"
+    name: "${yada_3366_1_3_name}_a_pa"
     register_type: holding
     address: 0x196
     value_type: S_WORD
@@ -340,7 +340,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_b_pa"
+    name: "${yada_3366_1_3_name}_b_pa"
     register_type: holding
     address: 0x197
     value_type: S_WORD
@@ -351,7 +351,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_c_pa"
+    name: "${yada_3366_1_3_name}_c_pa"
     register_type: holding
     address: 0x198
     value_type: S_WORD
@@ -363,7 +363,7 @@ sensor:
 # 频率
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_freq"
+    name: "${yada_3366_1_3_name}_freq"
     register_type: holding
     address: 0x199
     value_type: S_WORD
@@ -379,9 +379,9 @@ sensor:
 # 统计相关计算
   # 总计用电量
   - platform: total_daily_energy
-    name: ${yada_3366_1_1_name}_today_energy
-    id: ${yada_3366_1_1_name}_today_energy
-    power_id: ${yada_3366_1_1_name}_p
+    name: ${yada_3366_1_3_name}_today_energy
+    id: ${yada_3366_1_3_name}_today_energy
+    power_id: ${yada_3366_1_3_name}_p
     filters:
       - multiply: 0.0001
     unit_of_measurement: kWh
@@ -397,22 +397,22 @@ sensor:
             float sensor_value = x;
             static float last_reading = 0.0;
             if (sensor_value < last_reading || sensor_value == 0.0) {
-              id(${yada_3366_1_1_name}_yesterday_energy_sum) = last_reading;
+              id(${yada_3366_1_3_name}_yesterday_energy_sum) = last_reading;
               auto now = id(esptime).now();
               time_t rawtime = now.timestamp;
               struct tm * timeinfo = localtime(&rawtime);
               if (timeinfo->tm_mday == 1) {
-                id(${yada_3366_1_1_name}_month_energy_sum) = 0.0;
+                id(${yada_3366_1_3_name}_month_energy_sum) = 0.0;
               } else {
-                id(${yada_3366_1_1_name}_month_energy_sum) += last_reading;
+                id(${yada_3366_1_3_name}_month_energy_sum) += last_reading;
               }
             }
             last_reading = sensor_value;
   # A相用电量
   - platform: total_daily_energy
-    name: ${yada_3366_1_1_name}_a_today_energy
-    id: ${yada_3366_1_1_name}_a_today_energy
-    power_id: ${yada_3366_1_1_name}_a_p
+    name: ${yada_3366_1_3_name}_a_today_energy
+    id: ${yada_3366_1_3_name}_a_today_energy
+    power_id: ${yada_3366_1_3_name}_a_p
     filters:
       - multiply: 0.0001
     unit_of_measurement: kWh
@@ -428,21 +428,21 @@ sensor:
             float sensor_value = x;
             static float last_reading = 0.0;
             if (sensor_value < last_reading || sensor_value == 0.0) {
-              id(${yada_3366_1_1_name}_a_yesterday_energy_sum) = last_reading;
+              id(${yada_3366_1_3_name}_a_yesterday_energy_sum) = last_reading;
               auto now = id(esptime).now();
               time_t rawtime = now.timestamp;
               struct tm * timeinfo = localtime(&rawtime);
               if (timeinfo->tm_mday == 1) {
-                id(${yada_3366_1_1_name}_a_month_energy_sum) = 0.0;
+                id(${yada_3366_1_3_name}_a_month_energy_sum) = 0.0;
               } else {
-                id(${yada_3366_1_1_name}_a_month_energy_sum) += last_reading;
+                id(${yada_3366_1_3_name}_a_month_energy_sum) += last_reading;
               }
             }
             last_reading = sensor_value;
   - platform: total_daily_energy
-    name: ${yada_3366_1_1_name}_b_today_energy
-    id: ${yada_3366_1_1_name}_b_today_energy
-    power_id: ${yada_3366_1_1_name}_b_p
+    name: ${yada_3366_1_3_name}_b_today_energy
+    id: ${yada_3366_1_3_name}_b_today_energy
+    power_id: ${yada_3366_1_3_name}_b_p
     filters:
       - multiply: 0.0001
     unit_of_measurement: kWh
@@ -458,21 +458,21 @@ sensor:
             float sensor_value = x;
             static float last_reading = 0.0;
             if (sensor_value < last_reading || sensor_value == 0.0) {
-              id(${yada_3366_1_1_name}_b_yesterday_energy_sum) = last_reading;
+              id(${yada_3366_1_3_name}_b_yesterday_energy_sum) = last_reading;
               auto now = id(esptime).now();
               time_t rawtime = now.timestamp;
               struct tm * timeinfo = localtime(&rawtime);
               if (timeinfo->tm_mday == 1) {
-                id(${yada_3366_1_1_name}_b_month_energy_sum) = 0.0;
+                id(${yada_3366_1_3_name}_b_month_energy_sum) = 0.0;
               } else {
-                id(${yada_3366_1_1_name}_b_month_energy_sum) += last_reading;
+                id(${yada_3366_1_3_name}_b_month_energy_sum) += last_reading;
               }
             }
             last_reading = sensor_value;
   - platform: total_daily_energy
-    name: ${yada_3366_1_1_name}_c_today_energy
-    id: ${yada_3366_1_1_name}_c_today_energy
-    power_id: ${yada_3366_1_1_name}_c_p
+    name: ${yada_3366_1_3_name}_c_today_energy
+    id: ${yada_3366_1_3_name}_c_today_energy
+    power_id: ${yada_3366_1_3_name}_c_p
     filters:
       - multiply: 0.0001
     unit_of_measurement: kWh
@@ -488,14 +488,14 @@ sensor:
             float sensor_value = x;
             static float last_reading = 0.0;
             if (sensor_value < last_reading || sensor_value == 0.0) {
-              id(${yada_3366_1_1_name}_c_yesterday_energy_sum) = last_reading;
+              id(${yada_3366_1_3_name}_c_yesterday_energy_sum) = last_reading;
               auto now = id(esptime).now();
               time_t rawtime = now.timestamp;
               struct tm * timeinfo = localtime(&rawtime);
               if (timeinfo->tm_mday == 1) {
-                id(${yada_3366_1_1_name}_c_month_energy_sum) = 0.0;
+                id(${yada_3366_1_3_name}_c_month_energy_sum) = 0.0;
               } else {
-                id(${yada_3366_1_1_name}_c_month_energy_sum) += last_reading;
+                id(${yada_3366_1_3_name}_c_month_energy_sum) += last_reading;
               }
             }
             last_reading = sensor_value;
@@ -503,74 +503,74 @@ sensor:
 # 统计相关显示
   # 当月用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_monthly_energy
-    id: ${yada_3366_1_1_name}_monthly_energy
+    name: ${yada_3366_1_3_name}_monthly_energy
+    id: ${yada_3366_1_3_name}_monthly_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_month_energy_sum) + id(${yada_3366_1_1_name}_today_energy).state;
+      return id(${yada_3366_1_3_name}_month_energy_sum) + id(${yada_3366_1_3_name}_today_energy).state;
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 昨日用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_yesterday_energy
-    id: ${yada_3366_1_1_name}_yesterday_energy
+    name: ${yada_3366_1_3_name}_yesterday_energy
+    id: ${yada_3366_1_3_name}_yesterday_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_yesterday_energy_sum);
+      return id(${yada_3366_1_3_name}_yesterday_energy_sum);
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
 
   # 当月用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_a_monthly_energy
-    id: ${yada_3366_1_1_name}_a_monthly_energy
+    name: ${yada_3366_1_3_name}_a_monthly_energy
+    id: ${yada_3366_1_3_name}_a_monthly_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_a_month_energy_sum) + id(${yada_3366_1_1_name}_a_today_energy).state;
+      return id(${yada_3366_1_3_name}_a_month_energy_sum) + id(${yada_3366_1_3_name}_a_today_energy).state;
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 昨日用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_a_yesterday_energy
-    id: ${yada_3366_1_1_name}_a_yesterday_energy
+    name: ${yada_3366_1_3_name}_a_yesterday_energy
+    id: ${yada_3366_1_3_name}_a_yesterday_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_a_yesterday_energy_sum);
+      return id(${yada_3366_1_3_name}_a_yesterday_energy_sum);
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 当月用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_b_monthly_energy
-    id: ${yada_3366_1_1_name}_b_monthly_energy
+    name: ${yada_3366_1_3_name}_b_monthly_energy
+    id: ${yada_3366_1_3_name}_b_monthly_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_b_month_energy_sum) + id(${yada_3366_1_1_name}_b_today_energy).state;
+      return id(${yada_3366_1_3_name}_b_month_energy_sum) + id(${yada_3366_1_3_name}_b_today_energy).state;
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 昨日用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_b_yesterday_energy
-    id: ${yada_3366_1_1_name}_b_yesterday_energy
+    name: ${yada_3366_1_3_name}_b_yesterday_energy
+    id: ${yada_3366_1_3_name}_b_yesterday_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_b_yesterday_energy_sum);
+      return id(${yada_3366_1_3_name}_b_yesterday_energy_sum);
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 当月用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_c_monthly_energy
-    id: ${yada_3366_1_1_name}_c_monthly_energy
+    name: ${yada_3366_1_3_name}_c_monthly_energy
+    id: ${yada_3366_1_3_name}_c_monthly_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_c_month_energy_sum) + id(${yada_3366_1_1_name}_c_today_energy).state;
+      return id(${yada_3366_1_3_name}_c_month_energy_sum) + id(${yada_3366_1_3_name}_c_today_energy).state;
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 昨日用电量
   - platform: template
-    name: ${yada_3366_1_1_name}_c_yesterday_energy
-    id: ${yada_3366_1_1_name}_c_yesterday_energy
+    name: ${yada_3366_1_3_name}_c_yesterday_energy
+    id: ${yada_3366_1_3_name}_c_yesterday_energy
     lambda: |-
-      return id(${yada_3366_1_1_name}_c_yesterday_energy_sum);
+      return id(${yada_3366_1_3_name}_c_yesterday_energy_sum);
     update_interval: 60s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
