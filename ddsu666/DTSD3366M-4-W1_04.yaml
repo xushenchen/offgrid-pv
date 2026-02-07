@@ -385,7 +385,7 @@ sensor:
     register_count: 2
     value_type: U_DWORD
     accuracy_decimals: 2
-    unit_of_measurement: V
+    unit_of_measurement: kWh
     device_class: voltage
     filters:
       - multiply: 0.01
@@ -398,7 +398,7 @@ sensor:
     register_count: 2
     value_type: U_DWORD
     accuracy_decimals: 2
-    unit_of_measurement: V
+    unit_of_measurement: kWh
     device_class: voltage
     filters:
       - multiply: 0.01
