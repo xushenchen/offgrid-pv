@@ -385,8 +385,7 @@ sensor:
     register_count: 2
     value_type: U_DWORD
     accuracy_decimals: 2
-    unit_of_measurement: V
-    device_class: voltage
+    unit_of_measurement: kWh
     filters:
       - multiply: 0.01
   # 总的反向有功电能
@@ -398,8 +397,7 @@ sensor:
     register_count: 2
     value_type: U_DWORD
     accuracy_decimals: 2
-    unit_of_measurement: V
-    device_class: voltage
+    unit_of_measurement: kWh
     filters:
       - multiply: 0.01
 
@@ -602,3 +600,65 @@ sensor:
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
 
+switch:
+# 按钮清除数据功能
+  - platform: template
+    name: "${yada_3366_1_1_name} Write Current Time to Modbus"
+    id: "${yada_3366_1_1_name}_write_current_time_to_modbus"
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          auto t = id(esptime).now();
+          uint16_t year   = t.year;
+          uint16_t month  = t.month;
+          uint16_t day    = t.day_of_month;
+          uint16_t hour   = t.hour;
+          uint16_t minute = t.minute;
+          uint16_t second = t.second;
+
+          ESP_LOGD("time_write", "Will write %04u-%02u-%02u %02u:%02u:%02u",
+                   year, month, day, hour, minute, second);
+
+          std::vector<uint16_t> vals;
+          vals.push_back(year);
+          vals.push_back(month);
+          vals.push_back(day);
+          vals.push_back(hour);
+          vals.push_back(minute);
+          vals.push_back(second);
+
+          // 创建写多个寄存器命令（start address = 45）
+          uint16_t start_address = 0;
+          uint16_t quantity = static_cast<uint16_t>(vals.size());
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(
+                        id(${yada_3366_1_modbus_controller}), start_address, quantity, vals);
+          // 把命令入队（ModbusController 会在合适时间发送）
+          id(${yada_3366_1_modbus_controller})->queue_command(cmd);
+          ESP_LOGI("time_write", "Queued write-multiple-registers command");
+          
+      - delay: 500ms
+      - switch.turn_off: "${yada_3366_1_1_name}_write_current_time_to_modbus"
+
+text_sensor:
+  - platform: template
+      name: "${growatt0_device_name} Sys Time (readable)"
+      id: ${growatt0_device_name}_sys_time_readable
+      lambda: |-
+        if (isnan(id(${growatt0_device_name}_sys_time_year_set).state) ||
+            isnan(id(${growatt0_device_name}_sys_time_month_set).state) ||
+            isnan(id(${growatt0_device_name}_sys_time_day_set).state) ||
+            isnan(id(${growatt0_device_name}_sys_time_hour_set).state) ||
+            isnan(id(${growatt0_device_name}_sys_time_min_set).state) ||
+            isnan(id(${growatt0_device_name}_sys_time_second_set).state)) {
+          return std::string("unknown");
+        }
+        char buf[32];
+        sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d",
+          (int)id(${growatt0_device_name}_sys_time_year_set).state,
+          (int)id(${growatt0_device_name}_sys_time_month_set).state,
+          (int)id(${growatt0_device_name}_sys_time_day_set).state,
+          (int)id(${growatt0_device_name}_sys_time_hour_set).state,
+          (int)id(${growatt0_device_name}_sys_time_min_set).state,
+          (int)id(${growatt0_device_name}_sys_time_second_set).state);
+        return std::string(buf);
+      update_interval: 20s

@@ -379,7 +379,7 @@ sensor:
   # 总的有功电能
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_ap"
+    name: "${yada_3366_1_2_name}_ap"
     register_type: holding
     address: 0x100
     register_count: 2
@@ -392,7 +392,7 @@ sensor:
   # 总的反向有功电能
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_1_modbus_controller}
-    name: "${yada_3366_1_1_name}_an"
+    name: "${yada_3366_1_2_name}_an"
     register_type: holding
     address: 0x114
     register_count: 2
