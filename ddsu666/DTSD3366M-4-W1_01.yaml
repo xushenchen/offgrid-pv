@@ -408,6 +408,8 @@ sensor:
     id: ${yada_3366_1_1_name}_today_energy
     power_id: ${yada_3366_1_1_name}_p
     unit_of_measurement: kWh
+    filters:
+      - multiply: 0.001
     device_class: energy
     state_class: total_increasing
     restore: true
@@ -437,6 +439,8 @@ sensor:
     id: ${yada_3366_1_1_name}_a_today_energy
     power_id: ${yada_3366_1_1_name}_a_p
     unit_of_measurement: kWh
+    filters:
+      - multiply: 0.001
     device_class: energy
     state_class: total_increasing
     restore: true
@@ -465,6 +469,8 @@ sensor:
     id: ${yada_3366_1_1_name}_b_today_energy
     power_id: ${yada_3366_1_1_name}_b_p
     unit_of_measurement: kWh
+    filters:
+      - multiply: 0.001
     device_class: energy
     state_class: total_increasing
     restore: true
@@ -493,6 +499,8 @@ sensor:
     id: ${yada_3366_1_1_name}_c_today_energy
     power_id: ${yada_3366_1_1_name}_c_p
     unit_of_measurement: kWh
+    filters:
+      - multiply: 0.001
     device_class: energy
     state_class: total_increasing
     restore: true
