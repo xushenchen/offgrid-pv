@@ -688,8 +688,9 @@ number:
     value_type: U_WORD
     unit_of_measurement: "V"
     min_value: 0
-    max_value: 580
-    step: 1
+    max_value: 58
+    step: 0.1
+    multiply: 10
     skip_updates: ${growatt4_control_params_skip_updates}
   # 浮充电压（数据/10）
   - platform: modbus_controller
@@ -701,8 +702,9 @@ number:
     value_type: U_WORD
     unit_of_measurement: "V"
     min_value: 0
-    max_value: 570
-    step: 1
+    max_value: 57
+    step: 0.1
+    multiply: 10
     skip_updates: ${growatt4_control_params_skip_updates}
   # 切换回市电的电压（数据/10）
   - platform: modbus_controller
@@ -713,9 +715,10 @@ number:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "V"
-    min_value: 444
-    max_value: 514
-    step: 1
+    min_value: 44.4
+    max_value: 51.4
+    step: 0.1
+    multiply: 10
     mode: box
     skip_updates: ${growatt4_control_params_skip_updates}
   # modbus通讯地址
