@@ -2,236 +2,204 @@ substitutions:
   growatt1_modbus_controller_id: growatt1_modbus_controller
   growatt1_device_name: growatt1
 
-# interval:
-#   - interval: 29h
-#     then:
-#       - switch.turn_on: "${growatt1_device_name}_write_current_time_to_modbus"
+# =========================
+# 🔥 Modbus控制器（核心优化）
+# =========================
+modbus_controller:
+  - id: ${growatt1_modbus_controller_id}
+    address: 1
+    modbus_id: modbus1
 
+    command_throttle: 50ms      # ⭐ 防止打爆设备
+    update_interval: 2s         # ⭐ 全局刷新节奏
+    setup_priority: -10
+
+# =========================
+# 🔵 传感器（分块优化）
+# =========================
 sensor:
 
-  # =========================
-  # 🔵 BLOCK A (0 ~ 15)
-  # =========================
+  # 🔵 BLOCK 1（0~15）核心运行数据
   - platform: modbus_controller
     modbus_controller_id: ${growatt1_modbus_controller_id}
-    id: block_a
+    id: block_0_15
     address: 0
     register_count: 16
     register_type: read
 
   - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
     name: "${growatt1_device_name} System Status"
     address: 0
+    register_type: read
     value_type: U_WORD
 
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV1 DcVoltage"
-    address: 1
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV2 DcVoltage"
-    address: 2
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV1 DcPower"
-    id: "${growatt1_device_name}_PV1_DcPower"
-    address: 3
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV2 DcPower"
-    id: "${growatt1_device_name}_PV2_DcPower"
-    address: 5
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV1 DcInputCurrent"
-    address: 7
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} PV2 DcInputCurrent"
-    address: 8
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Output active power"
-    address: 9
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Output apparent power"
-    address: 11
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} AC Charge Watts"
-    address: 13
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  # =========================
-  # 🔵 BLOCK B (16 ~ 30)
-  # =========================
   - platform: modbus_controller
     modbus_controller_id: ${growatt1_modbus_controller_id}
-    id: block_b
+    name: "${growatt1_device_name} PV1 Voltage"
+    address: 1
+    register_type: read
+    value_type: U_WORD
+    filters: [ multiply: 0.1 ]
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    name: "${growatt1_device_name} PV2 Voltage"
+    address: 2
+    register_type: read
+    value_type: U_WORD
+    filters: [ multiply: 0.1 ]
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: pv1_power
+    name: "${growatt1_device_name} PV1 Power"
+    address: 3
+    register_type: read
+    value_type: U_DWORD
+    filters: [ multiply: 0.1 ]
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: pv2_power
+    name: "${growatt1_device_name} PV2 Power"
+    address: 5
+    register_type: read
+    value_type: U_DWORD
+    filters: [ multiply: 0.1 ]
+
+  # 🔵 BLOCK 2（16~30）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: block_16_30
     address: 16
     register_count: 15
     register_type: read
 
   - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: battery_voltage
     name: "${growatt1_device_name} Battery Voltage"
-    id: "${growatt1_device_name}_battery_voltage"
     address: 17
+    register_type: read
     value_type: U_WORD
     filters: [ multiply: 0.01 ]
 
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Battery SOC"
-    address: 18
-    value_type: U_WORD
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Grid Volt"
-    address: 20
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Ac Input Frequency"
-    address: 21
-    value_type: U_WORD
-    filters: [ multiply: 0.01 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} AC output Volt"
-    address: 22
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} AC output frequency"
-    address: 23
-    value_type: U_WORD
-    filters: [ multiply: 0.01 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Temperature"
-    address: 25
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} DcDc Temperature"
-    address: 26
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} LoadPercent"
-    address: 27
-    value_type: U_WORD
-    filters: [ multiply: 0.1 ]
-
-  # =========================
-  # 🔵 BLOCK C (31 ~ 60)
-  # =========================
   - platform: modbus_controller
     modbus_controller_id: ${growatt1_modbus_controller_id}
-    id: block_c
+    name: "${growatt1_device_name} Battery SOC"
+    address: 18
+    register_type: read
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    name: "${growatt1_device_name} Grid Voltage"
+    address: 20
+    register_type: read
+    value_type: U_WORD
+    filters: [ multiply: 0.1 ]
+
+  # 🔵 BLOCK 3（31~60）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: block_31_60
     address: 31
     register_count: 30
     register_type: read
 
   - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
     name: "${growatt1_device_name} Output Current"
     address: 34
+    register_type: read
     value_type: U_WORD
     filters: [ multiply: 0.1 ]
 
-  - platform: modbus_controller
-    name: "${growatt1_device_name} AC input watt"
-    address: 36
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Fault Bit"
-    address: 40
-    bitmask: 0x0001
-    value_type: U_WORD
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Warning Bit"
-    address: 41
-    bitmask: 0x0001
-    value_type: U_WORD
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Fault Value"
-    address: 42
-    value_type: U_WORD
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Warning Value"
-    address: 43
-    value_type: U_WORD
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Total Energy Today"
-    address: 53
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Total Energy Lifetime"
-    address: 55
-    value_type: U_DWORD
-    filters: [ multiply: 0.1 ]
-
-  # =========================
-  # 🔵 BLOCK D (61 ~ 100)
-  # =========================
   - platform: modbus_controller
     modbus_controller_id: ${growatt1_modbus_controller_id}
-    id: block_d
+    name: "${growatt1_device_name} Total Energy Today"
+    address: 53
+    register_type: read
+    value_type: U_DWORD
+    filters: [ multiply: 0.1 ]
+
+  # 🔵 BLOCK 4（61~100）
+  - platform: modbus_controller
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: block_61_100
     address: 61
     register_count: 40
     register_type: read
 
   - platform: modbus_controller
-    name: "${growatt1_device_name} AC discharge watt"
-    address: 69
-    value_type: U_DWORD
-    filters:
-      - lambda: |-
-          if (x == 0xFFFFFFFF || x > 4000000000) return 0;
-          return x * 0.1;
-
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Battery Watts"
-    id: "${growatt1_device_name}_battery_watts"
+    modbus_controller_id: ${growatt1_modbus_controller_id}
+    id: battery_watts
+    name: "${growatt1_device_name} Battery Power"
     address: 77
+    register_type: read
     value_type: S_DWORD
     filters: [ multiply: 0.1 ]
 
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Fan speed of MPPT Charger"
-    address: 81
-    value_type: U_WORD
+# =========================
+# 🧠 计算类传感器（防炸优化）
+# =========================
+  - platform: template
+    name: "${growatt1_device_name} Total PV Power"
+    update_interval: 2s
+    lambda: |-
+      if (isnan(id(pv1_power).state) || isnan(id(pv2_power).state)) return NAN;
+      return id(pv1_power).state + id(pv2_power).state;
 
-  - platform: modbus_controller
-    name: "${growatt1_device_name} Fan speed of Inverter"
-    address: 82
-    value_type: U_WORD
+  - platform: template
+    name: "${growatt1_device_name} Battery Current"
+    update_interval: 2s
+    lambda: |-
+      if (isnan(id(battery_voltage).state) || id(battery_voltage).state == 0) return NAN;
+      return (-1 * id(battery_watts).state) / id(battery_voltage).state;
+
+# =========================
+# 🔤 状态文本
+# =========================
+text_sensor:
+  - platform: template
+    name: "${growatt1_device_name} Status Text"
+    update_interval: 5s
+    lambda: |-
+      int v = (int)id(${growatt1_device_name}_system_status).state;
+      switch(v){
+        case 0: return {"待机"};
+        case 2: return {"放电"};
+        case 5: return {"光伏充电"};
+        case 6: return {"市电充电"};
+        case 11: return {"旁路"};
+        default: return {"未知"};
+      }
+
+# =========================
+# ⚡ 写寄存器（独立队列，不影响读取）
+# =========================
+switch:
+  - platform: template
+    name: "${growatt1_device_name} Sync Time"
+    id: sync_time
+    turn_on_action:
+      - lambda: |-
+          auto t = id(esptime).now();
+          std::vector<uint16_t> vals = {
+            (uint16_t)t.year,
+            (uint16_t)t.month,
+            (uint16_t)t.day_of_month,
+            (uint16_t)t.hour,
+            (uint16_t)t.minute,
+            (uint16_t)t.second
+          };
+
+          auto cmd = esphome::modbus_controller::ModbusCommandItem
+            ::create_write_multiple_command(
+              id(${growatt1_modbus_controller_id}), 45, 6, vals);
+
+          id(${growatt1_modbus_controller_id})->queue_command(cmd);
+
+      - delay: 500ms
+      - switch.turn_off: sync_time
