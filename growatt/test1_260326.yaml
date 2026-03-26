@@ -2,10 +2,10 @@ substitutions:
   growatt1_modbus_controller_id: growatt1_modbus_controller
   growatt1_device_name: growatt1
 
-interval:
-  - interval: 29h
-    then:
-      - switch.turn_on: "${growatt1_device_name}_write_current_time_to_modbus"
+# interval:
+#   - interval: 29h
+#     then:
+#       - switch.turn_on: "${growatt1_device_name}_write_current_time_to_modbus"
 
 sensor:
 
