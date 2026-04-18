@@ -49,6 +49,7 @@ script:
 
 time:
   - id: esptime
+    platform: sntp
     on_time:
       # ✅ 0点精准触发
       - seconds: 0
