@@ -47,21 +47,19 @@ script:
             id(${yada_3366_1_1_name}_last_processed_day) = today;
           }
 
-time:
-  - id: esptime
-    platform: sntp
-    on_time:
-      # ✅ 0点精准触发
-      - seconds: 0
-        minutes: 0
-        hours: 0
-        then:
-          - script.execute: ${yada_3366_1_1_name}_check_day_rollover
-      # 每5分钟检查一次（稳）
-      - seconds: 0
-        minutes: /5
-        then:
-          - script.execute: ${yada_3366_1_1_name}_check_day_rollover
+interval:
+  - interval: 5min
+    then:
+      - script.execute: ${yada_3366_1_1_name}_check_day_rollover
+  - interval: 5s
+    then:
+      - lambda: |-
+          auto now = id(esptime).now();
+          if (!now.is_valid()) return;
+          if (now.hour == 0 && now.minute == 0 && now.second < 20) {
+            id(${yada_3366_1_1_name}_check_day_rollover).execute();
+          }
+
 
 # 传感器
 sensor:
