@@ -36,10 +36,11 @@ script:
             
             float total = id(${yada_3366_1_2_name}_ap).state;
             if (isnan(total)) return;
-            
+
             float yesterday = total - id(${yada_3366_1_2_name}_day_start_energy);
             if (yesterday >= 0) {
               id(${yada_3366_1_2_name}_yesterday_energy_sum) = yesterday;
+              id(${yada_3366_1_2_name}_yesterday_energy).update();
             }
             id(${yada_3366_1_2_name}_day_start_energy) = total;
             if (now.day_of_month == 1) {
@@ -47,6 +48,9 @@ script:
             }
 
             id(${yada_3366_1_2_name}_last_processed_day) = today;
+
+            id(${yada_3366_1_2_name}_today_energy).update();
+            id(${yada_3366_1_2_name}_monthly_energy).update();
           }
 
 interval:
@@ -419,6 +423,8 @@ sensor:
     on_value:
       then:
         - script.execute: ${yada_3366_1_2_name}_check_day_rollover
+        - component.update: ${yada_3366_1_2_name}_today_energy
+        - component.update: ${yada_3366_1_2_name}_monthly_energy
   # 总的反向有功电能
   - platform: modbus_controller
     modbus_controller_id: ${yada_3366_2_modbus_controller}
@@ -440,7 +446,7 @@ sensor:
     id: ${yada_3366_1_2_name}_monthly_energy
     lambda: |-
       return id(${yada_3366_1_2_name}_ap).state - id(${yada_3366_1_2_name}_month_start_energy);
-    update_interval: 30s
+    # update_interval: 30s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 昨日用电量
@@ -449,7 +455,7 @@ sensor:
     id: ${yada_3366_1_2_name}_yesterday_energy
     lambda: |-
       return id(${yada_3366_1_2_name}_yesterday_energy_sum);
-    update_interval: 30s
+    # update_interval: 30s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
   # 今日用电量
@@ -458,7 +464,7 @@ sensor:
     id: ${yada_3366_1_2_name}_today_energy
     lambda: |-
       return id(${yada_3366_1_2_name}_ap).state - id(${yada_3366_1_2_name}_day_start_energy);
-    update_interval: 30s
+    # update_interval: 30s
     unit_of_measurement: "kWh"
     icon: "mdi:flash"
 
