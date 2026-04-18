@@ -35,6 +35,8 @@ script:
           if (today != id(${yada_3366_1_1_name}_last_processed_day)) {
             
             float total = id(${yada_3366_1_1_name}_ap).state;
+            if (isnan(total)) return;
+            
             float yesterday = total - id(${yada_3366_1_1_name}_day_start_energy);
             if (yesterday >= 0) {
               id(${yada_3366_1_1_name}_yesterday_energy_sum) = yesterday;
