@@ -1,6 +1,6 @@
 substitutions:
-  yada_3366_1_2_name: meter_1_1
-  yada_3366_2_modbus_controller: meter_1_modbus_controller
+  yada_3366_1_2_name: meter_1_2
+  yada_3366_2_modbus_controller: meter_2_modbus_controller
 
 globals:
   # 记录上次处理的日期
