@@ -56,8 +56,6 @@ sensor:
     value_type: S_WORD
     unit_of_measurement: W
     accuracy_decimals: 1
-    filters:
-      - multiply: 1000
     device_class: power
 
   # 无功功率
@@ -70,8 +68,6 @@ sensor:
     value_type: S_WORD
     unit_of_measurement: var
     accuracy_decimals: 1
-    filters:
-      - multiply: 1000
 
   # 视在功率
   - platform: modbus_controller
@@ -83,8 +79,6 @@ sensor:
     value_type: U_WORD
     unit_of_measurement: VA
     accuracy_decimals: 1
-    filters:
-      - multiply: 1000
 
   # 功率因数
   - platform: modbus_controller
