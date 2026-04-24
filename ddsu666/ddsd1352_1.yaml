@@ -218,11 +218,16 @@ button:
             uint16_t ms = minute << 8 | second;
 
             // 写入 Modbus
-            auto *controller = id(${ddsd1352_1_modbus_controller_id});
+            auto *ctrl = id(${ddsd1352_1_modbus_controller_id});
 
-            controller->write_single_register(0x0012, ym);
-            controller->write_single_register(0x0013, dh);
-            controller->write_single_register(0x0014, ms);
+            ctrl->queue_command(
+              esphome::modbus_controller::ModbusCommandItem::create_write_single_command(ctrl, 0x0012, ym));
+
+            ctrl->queue_command(
+              esphome::modbus_controller::ModbusCommandItem::create_write_single_command(ctrl, 0x0013, dh));
+
+            ctrl->queue_command(
+              esphome::modbus_controller::ModbusCommandItem::create_write_single_command(ctrl, 0x0014, ms));
 
             ESP_LOGI("time", "Time synced: %04d-%02d-%02d %02d:%02d:%02d",
               year, month, day, hour, minute, second);
