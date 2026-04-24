@@ -1,0 +1,227 @@
+substitutions:
+  ddsd1352_1_name: meter_1
+
+globals:
+  - id: ${ddsd1352_1_name}_month_energy_sum
+    type: float
+    restore_value: true
+    initial_value: '0.0'
+  - id: ${ddsd1352_1_name}_yesterday_energy_sum
+    type: float
+    restore_value: true
+    initial_value: '0.0'
+
+interval:
+  - interval: 29h
+    then:
+      - button.press: ${ddsd1352_1_name}_sync_time
+
+sensor:
+  # 电压
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_u
+    name: ${ddsd1352_1_name}_u
+    address: 0x000B
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: V
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+    device_class: voltage
+
+  # 电流
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_i
+    name: ${ddsd1352_1_name}_i
+    address: 0x000C
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: A
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+    device_class: current
+
+  # 有功功率（kW → W）
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_p
+    name: ${ddsd1352_1_name}_p
+    address: 0x000D
+    register_type: holding
+    value_type: S_WORD
+    unit_of_measurement: W
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+    device_class: power
+
+  # 无功功率
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_q
+    name: ${ddsd1352_1_name}_q
+    address: 0x000E
+    register_type: holding
+    value_type: S_WORD
+    unit_of_measurement: var
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+
+  # 视在功率
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_s
+    name: ${ddsd1352_1_name}_s
+    address: 0x000F
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: VA
+    accuracy_decimals: 1
+    filters:
+      - multiply: 1000
+
+  # 功率因数
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_pf
+    name: ${ddsd1352_1_name}_pf
+    address: 0x0010
+    register_type: holding
+    value_type: S_WORD
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+    device_class: power_factor
+
+  # 频率
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_freq
+    name: ${ddsd1352_1_name}_freq
+    address: 0x0011
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: Hz
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+      - median:
+          window_size: 3
+          send_every: 3
+
+  # 总电能（kWh）
+  - platform: modbus_controller
+    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    id: ${ddsd1352_1_name}_ep
+    name: ${ddsd1352_1_name}_ep
+    address: 0x0000
+    register_count: 2
+    register_type: holding
+    value_type: U_DWORD
+    unit_of_measurement: kWh
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+      - median:
+          window_size: 3
+          send_every: 3
+    device_class: energy
+    state_class: total_increasing
+
+  # 今日用电量（复用你原来的逻辑）
+  - platform: total_daily_energy
+    name: ${ddsd1352_1_name}_today_energy
+    id: ${ddsd1352_1_name}_today_energy
+    power_id: ${ddsd1352_1_name}_p
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    restore: true
+    method: right
+    accuracy_decimals: 1
+    on_value:
+      then:
+        - lambda: |-
+            float sensor_value = x;
+            static float last_reading = 0.0;
+            static float un_handle_last_reading = 0.0;
+
+            if (sensor_value < last_reading) {
+              id(${ddsd1352_1_name}_yesterday_energy_sum) = last_reading;
+              auto now = id(esptime).now();
+              if (!now.is_valid()) {
+                un_handle_last_reading += last_reading;
+              } else {
+                time_t rawtime = now.timestamp;
+                struct tm * timeinfo = localtime(&rawtime);
+                if (timeinfo->tm_mday == 1) {
+                  id(${ddsd1352_1_name}_month_energy_sum) = 0.0;
+                } else {
+                  id(${ddsd1352_1_name}_month_energy_sum) += (last_reading + un_handle_last_reading);
+                }
+                un_handle_last_reading = 0.0;
+              }
+            }
+            last_reading = sensor_value;
+
+  # 当月用电量
+  - platform: template
+    name: ${ddsd1352_1_name}_monthly_energy
+    id: ${ddsd1352_1_name}_monthly_energy
+    lambda: |-
+      return id(${ddsd1352_1_name}_month_energy_sum) + id(${ddsd1352_1_name}_today_energy).state;
+    update_interval: 60s
+    unit_of_measurement: "kWh"
+    icon: "mdi:flash"
+
+  # 昨日用电量
+  - platform: template
+    name: ${ddsd1352_1_name}_yesterday_energy
+    id: ${ddsd1352_1_name}_yesterday_energy
+    lambda: |-
+      return id(${ddsd1352_1_name}_yesterday_energy_sum);
+    update_interval: 60s
+    unit_of_measurement: "kWh"
+    icon: "mdi:flash"
+
+button:
+  - platform: template
+    name: "${ddsd1352_1_name}_sync_time"
+    id: ${ddsd1352_1_name}_sync_time
+    on_press:
+      then:
+        - lambda: |-
+            auto now = id(esptime).now();
+            if (!now.is_valid()) {
+              ESP_LOGW("time", "Time not valid, skip sync");
+              return;
+            }
+
+            int year = now.year;
+            int month = now.month;
+            int day = now.day_of_month;
+            int hour = now.hour;
+            int minute = now.minute;
+            int second = now.second;
+
+            // 组包（按寄存器格式）
+            uint16_t ym = (year % 100) << 8 | month;
+            uint16_t dh = day << 8 | hour;
+            uint16_t ms = minute << 8 | second;
+
+            // 写入 Modbus
+            auto *controller = id(${ddsd1352_1_name}_modbus_controller);
+
+            controller->write_single_register(0x0012, ym);
+            controller->write_single_register(0x0013, dh);
+            controller->write_single_register(0x0014, ms);
+
+            ESP_LOGI("time", "Time synced: %04d-%02d-%02d %02d:%02d:%02d",
+              year, month, day, hour, minute, second);
