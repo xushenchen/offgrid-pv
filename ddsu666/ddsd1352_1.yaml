@@ -1,5 +1,6 @@
 substitutions:
   ddsd1352_1_name: meter_1
+  ddsd1352_1_modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
 
 globals:
   - id: ${ddsd1352_1_name}_month_energy_sum
@@ -19,7 +20,7 @@ interval:
 sensor:
   # 电压
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_u
     name: ${ddsd1352_1_name}_u
     address: 0x000B
@@ -33,7 +34,7 @@ sensor:
 
   # 电流
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_i
     name: ${ddsd1352_1_name}_i
     address: 0x000C
@@ -47,7 +48,7 @@ sensor:
 
   # 有功功率（kW → W）
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_p
     name: ${ddsd1352_1_name}_p
     address: 0x000D
@@ -61,7 +62,7 @@ sensor:
 
   # 无功功率
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_q
     name: ${ddsd1352_1_name}_q
     address: 0x000E
@@ -74,7 +75,7 @@ sensor:
 
   # 视在功率
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_s
     name: ${ddsd1352_1_name}_s
     address: 0x000F
@@ -87,7 +88,7 @@ sensor:
 
   # 功率因数
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_pf
     name: ${ddsd1352_1_name}_pf
     address: 0x0010
@@ -100,7 +101,7 @@ sensor:
 
   # 频率
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_freq
     name: ${ddsd1352_1_name}_freq
     address: 0x0011
@@ -116,7 +117,7 @@ sensor:
 
   # 总电能（kWh）
   - platform: modbus_controller
-    modbus_controller_id: ${ddsd1352_1_name}_modbus_controller
+    modbus_controller_id: ${ddsd1352_1_modbus_controller_id}
     id: ${ddsd1352_1_name}_ep
     name: ${ddsd1352_1_name}_ep
     address: 0x0000
