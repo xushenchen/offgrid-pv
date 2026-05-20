@@ -1,0 +1,427 @@
+substitutions:
+  # 使用使用防逆流
+  use_fnl: true
+  # 并网防逆流电表功率ID
+  wb_fnl_db_gl_id: ${ddsd1352_1_name}_p
+
+
+script:
+  - id: sync_bw_bat_start_charge_voltage
+    then:
+      - lambda: |-
+          id(bw_battery_start_charge_voltage).publish_state(id(gv_bw_bat_start_charge_voltage_x100) / 100.0);
+  - id: sync_bw_bat_end_charge_voltage
+    then:
+      - lambda: |-
+          id(bw_battery_end_charge_voltage).publish_state(id(gv_bw_bat_end_charge_voltage_x100) / 100.0);
+  - id: sync_bw_bat_float_charge_voltage
+    then:
+      - lambda: |-
+          id(bw_battery_float_charge_voltage).publish_state(id(gv_bw_bat_float_charge_voltage_x100) / 100.0);
+  - id: sync_bw_bat_charge_current
+    then:
+      - lambda: |-
+          id(bw_battery_charge_current).publish_state(id(gv_bw_bat_charge_current));
+  - id: sync_bw_bat_float_charge_current
+    then:
+      - lambda: |-
+          id(bw_battery_float_charge_current).publish_state(id(gv_bw_bat_float_charge_current));
+  # 同步电池当前电压
+  - id: sync_bw_bat_current_voltage
+    then:
+      - lambda: |-
+          id(bw_current_battery_voltage).publish_state(id(gv_bw_current_battery_voltage_x100) / 100.0f);
+
+
+
+
+button:
+  - platform: template
+    id: battery_48v_default_button
+    name: "一键设置48V电池"
+    icon: "mdi:battery-charging"
+    on_press:
+      - lambda: |-
+          id(gv_bw_bat_start_charge_voltage_x100) = 4000;
+          id(gv_bw_bat_end_charge_voltage_x100) = 5720;
+          id(gv_bw_bat_float_charge_voltage_x100) = 5620;
+          id(gv_bw_bat_charge_current) = 20;        // 设置的电池充电电流
+          id(gv_bw_bat_float_charge_current) = 20;  // 设置的浮充电流
+      - script.execute: sync_bw_bat_start_charge_voltage
+      - script.execute: sync_bw_bat_end_charge_voltage
+      - script.execute: sync_bw_bat_float_charge_voltage
+      - script.execute: sync_bw_bat_charge_current
+      - script.execute: sync_bw_bat_float_charge_current
+
+
+sensor:
+
+  # 当前接入并网机电池电压
+  - platform: template
+    name: "BW Current Battery Voltage"
+    id: bw_current_battery_voltage
+    unit_of_measurement: V
+    update_interval: never
+    lambda: |-
+      return id(gv_bw_current_battery_voltage_x100) / 100.0;
+  # 当前需要设置的并网机功率
+  - platform: template
+    name: "BW Target Active Power"
+    id: bw_target_active_power
+    unit_of_measurement: W
+    update_interval: never
+  # 当前设置的并网机器功率比例
+  - platform: template
+    name: "BW Target Power Limit"
+    id: bw_target_power_limit
+    unit_of_measurement: '%'
+    update_interval: never
+
+globals:
+
+  # 并网机设置的充电电流
+  - id: gv_bw_bat_charge_current
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 并网机设置的浮充充电电流
+  - id: gv_bw_bat_float_charge_current
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 电池起始充电电压
+  - id: gv_bw_bat_start_charge_voltage_x100
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 充电满电电压
+  - id: gv_bw_bat_end_charge_voltage_x100
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 电池浮充电压
+  - id: gv_bw_bat_float_charge_voltage_x100
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 电池满电标识: 锂电满电之后掉回浮充电压之前都算满电
+  - id: gv_bw_bat_float_charge_is_full
+    type: bool
+    restore_value: false
+    initial_value: 'false'
+
+
+  # 当前电池的电压（从传感器中获取）
+  - id: gv_bw_current_battery_voltage_x100
+    type: uint32_t
+    restore_value: false
+    initial_value: '0'
+    
+
+  # 并网逆变器的额定
+  - id: gv_bw_pv_inverter_rated_power
+    type: uint32_t
+    restore_value: true
+    initial_value: '0'
+  # 并网逆变器的最大功率百分比(部分逆变器可以输入110%功率)
+  - id: gv_bw_pv_inverter_max_power_limit
+    type: uint32_t
+    restore_value: true
+    initial_value: '100'
+
+  # 是否开启并网防逆流
+  - id: gv_bw_fnl_enable
+    type: bool
+    restore_value: yes
+    initial_value: 'false'
+  # 防逆流比例（0-100）
+  - id: gv_bw_fnl_power_limit
+    type: uint32_t
+    restore_value: true
+    initial_value: '90'
+  # 防逆流最大功率(初始默认1kw)
+  - id: gv_bw_fnl_max_power
+    type: uint32_t
+    restore_value: true
+    initial_value: '1000'
+  # 防逆流预留功率(初始默认100w)
+  - id: gv_bw_fnl_keep_power
+    type: uint32_t
+    restore_value: true
+    initial_value: '100'
+
+
+switch:
+#if ${use_fnl}
+  # 并网防逆流开关
+  - platform: template
+    name: "BW FNL Enabled"
+    lambda: |-
+      return id(gv_bw_fnl_enable);
+    turn_on_action:
+      - lambda: |-
+          id(gv_bw_fnl_enable) = true;
+    turn_off_action:
+      - lambda: |-
+          id(gv_bw_fnl_enable) = false;
+#endif
+
+  # 主并网继电器开关
+  - platform: gpio
+    pin: GPIO39
+    name: "BW Jdq Main"
+    id: "bw_jdq_main"
+    inverted: false
+    restore_mode: ALWAYS_OFF
+
+number:
+  - platform: template
+    name: "BW PV Inverter Rated Power"
+    id: bw_pv_inverter_rated_power
+    unit_of_measurement: "W"
+    min_value: 0
+    max_value: 12000
+    step: 100
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_pv_inverter_rated_power);
+    set_action:
+      - lambda: |-
+          id(gv_bw_pv_inverter_rated_power) = (uint32_t) x;
+          id(bw_pv_inverter_rated_power).publish_state(x);
+  # 最大功率百分比
+  - platform: template
+    name: "BW PV Inverter Max Power Limit"
+    id: bw_pv_inverter_max_power_limit
+    unit_of_measurement: "%"
+    min_value: 0
+    max_value: 110
+    step: 1
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_pv_inverter_max_power_limit);
+    set_action:
+      - lambda: |-
+          id(gv_bw_pv_inverter_max_power_limit) = (uint32_t) x;
+          id(bw_pv_inverter_max_power_limit).publish_state(x);
+  - platform: template
+    name: "BW Battery Charge Current"
+    id: bw_battery_charge_current
+    unit_of_measurement: "A"
+    min_value: 0
+    max_value: 300
+    step: 1
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_bat_charge_current);
+    set_action:
+      - lambda: |-
+          id(gv_bw_bat_charge_current) = (uint32_t) x;
+          id(bw_battery_charge_current).publish_state(x);
+  - platform: template
+    name: "BW Battery Float Charge Current"
+    id: bw_battery_float_charge_current
+    unit_of_measurement: "A"
+    min_value: 0
+    max_value: 400
+    step: 1
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_bat_float_charge_current);
+    set_action:
+      - lambda: |-
+          id(gv_bw_bat_float_charge_current) = (uint32_t) x;
+          id(bw_battery_float_charge_current).publish_state(x);
+  - platform: template
+    name: "BW Battery Start Charge Voltage"
+    id: bw_battery_start_charge_voltage
+    unit_of_measurement: "V"
+    min_value: 40.0
+    max_value: 80.0
+    step: 0.01
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_bat_start_charge_voltage_x100) / 100.0;
+    set_action:
+      - lambda: |-
+          id(gv_bw_bat_start_charge_voltage_x100) = (uint32_t) round(x * 100);
+          id(bw_battery_start_charge_voltage).publish_state(x);
+  - platform: template
+    name: "BW Battery End Charge Voltage"
+    id: bw_battery_end_charge_voltage
+    unit_of_measurement: "V"
+    min_value: 40.0
+    max_value: 80.0
+    step: 0.01
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_bat_end_charge_voltage_x100) / 100.0;
+    set_action:
+      - lambda: |-
+          id(gv_bw_bat_end_charge_voltage_x100) = (uint32_t) round(x * 100);
+          id(bw_battery_end_charge_voltage).publish_state(x);
+  - platform: template
+    name: "BW Battery Float Charge Voltage"
+    id: bw_battery_float_charge_voltage
+    unit_of_measurement: "V"
+    min_value: 40.0
+    max_value: 80.0
+    step: 0.01
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_bat_float_charge_voltage_x100) / 100.0;
+    set_action:
+      - lambda: |-
+          id(gv_bw_bat_float_charge_voltage_x100) = (uint32_t) round(x * 100);
+          id(bw_battery_float_charge_voltage).publish_state(x);
+#if ${use_fnl}
+  # 并网防逆流比例
+  - platform: template
+    name: "BW FNL Power Limit"
+    id: bw_fnl_power_limit
+    unit_of_measurement: "%"
+    min_value: 0
+    max_value: 100
+    step: 1
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_fnl_power_limit);
+    set_action:
+      - lambda: |-
+          id(gv_bw_fnl_power_limit) = x;
+          id(bw_fnl_power_limit).publish_state(x);
+  # 并网防逆流最大功率
+  - platform: template
+    name: "BW FNL Max Power"
+    id: bw_fnl_max_power
+    unit_of_measurement: "w"
+    min_value: 0
+    max_value: 30000
+    step: 100
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_fnl_max_power);
+    set_action:
+      - lambda: |-
+          id(gv_bw_fnl_max_power) = x;
+          id(bw_fnl_max_power).publish_state(x);
+  # 并网防逆流比例
+  - platform: template
+    name: "BW FNL Keep Power"
+    id: bw_fnl_keep_power
+    unit_of_measurement: "w"
+    min_value: 0
+    max_value: 5000
+    step: 5
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_fnl_keep_power);
+    set_action:
+      - lambda: |-
+          id(gv_bw_fnl_keep_power) = x;
+          id(bw_fnl_keep_power).publish_state(x);
+#endif
+
+binary_sensor:
+  # 增加一个当前电池是否是充满的状态给前端，方便知道是不是因为充满了所以才没充电的
+  - platform: template
+    name: "BW Battery Float Charging Is Full"
+    id: "bw_battery_float_charging_is_full"
+    lambda: |-
+      return id(gv_bw_bat_float_charge_is_full);
+
+# 间隔时间定时设置一体机的的参数
+interval:
+  - interval: 200ms
+    then:
+      - lambda: |-
+          float startChargeVoltage = (float) id(gv_bw_bat_start_charge_voltage_x100) / 100.0f;//起始充电电压
+          float endChargeVoltage = (float) id(gv_bw_bat_end_charge_voltage_x100) / 100.0f;// 满电电压
+          float floatChargeVoltage = (float) id(gv_bw_bat_float_charge_voltage_x100) / 100.0f; // 浮充电压
+          uint32_t bwBatChargeCurrent = id(gv_bw_bat_charge_current); // 设置的电池充电电流
+          uint32_t bwBatFloatChargeCurrent = id(gv_bw_bat_float_charge_current); // 设置的浮充电流
+          uint32_t pvInverterMaxPowerPercent = id(gv_bw_pv_inverter_max_power_limit); // 逆变器最大的功率比例
+          bool bwBatFloatChargeIsFull = id(gv_bw_bat_float_charge_is_full); // 当前是否是浮充满电状态
+          // 严谨点，强制浮充电流最大等于充电电流
+          if (bwBatFloatChargeCurrent > bwBatChargeCurrent) {
+            bwBatFloatChargeCurrent = bwBatChargeCurrent;
+          }
+
+          float currentBatTotalVoltage = (float) id(gv_bw_current_battery_voltage_x100) / 100.0f; // 当前电池电压(从传感器中获取)
+          float batChargePower = 0.0f; // 需要给电池的充电功率
+          // 至少有设置了起始、结束的充电电压才敢真启用充电
+          if (startChargeVoltage >= 40 && endChargeVoltage >= 40) {
+            // 如果电池电压在充电范围 并且 不是浮充充满状态
+            if (bwBatFloatChargeIsFull == false && currentBatTotalVoltage >= startChargeVoltage && currentBatTotalVoltage < endChargeVoltage) {
+              if (currentBatTotalVoltage >= floatChargeVoltage) {
+                // 电池功率等于浮充电流 * 电压
+                batChargePower = currentBatTotalVoltage * bwBatFloatChargeCurrent;
+              } else {
+                // 电池功率等于正常充电电流 * 电压
+                batChargePower = currentBatTotalVoltage * bwBatChargeCurrent;
+              }
+            }
+          }
+
+          // 如果当前标识为充满，又回落到浮充以前的话，更改充满标识
+          if (bwBatFloatChargeIsFull == true && currentBatTotalVoltage < floatChargeVoltage) {
+            bwBatFloatChargeIsFull = false;
+            id(gv_bw_bat_float_charge_is_full) = false;
+            id(bw_battery_float_charging_is_full).publish_state(false);
+          } else if (bwBatFloatChargeIsFull == false && currentBatTotalVoltage >= endChargeVoltage) {
+            bwBatFloatChargeIsFull = false;
+            id(gv_bw_bat_float_charge_is_full) = false;
+            id(bw_battery_float_charging_is_full).publish_state(false);
+          }
+
+          float loadActivePower = 0.0f; // 负载的有功功率(从电表获取)
+          // 这里多添加了一个编译条件，在没有条件加电表做防逆流的情况下可以忽略这一步
+          #if ${use_fnl}
+          // 是否开启了防逆流 外加 判断电表数据如果存在的话进行赋值
+          if (id(gv_bw_fnl_enable) && id(${wb_fnl_db_gl_id}).has_state() && !isnan(id(${wb_fnl_db_gl_id}).state)) {
+            loadActivePower = id(${wb_fnl_db_gl_id}).state;
+            // 先乘一个比例
+            loadActivePower = loadActivePower * (float) (id(gv_bw_fnl_power_limit) / 100.0f);
+            // 再剪掉保持功率
+            loadActivePower = loadActivePower - (float) id(gv_bw_fnl_keep_power);
+            // 再判断是否在合理范围
+            uint32_t gvFnlMaxPower = id(gv_bw_fnl_max_power);
+            if (loadActivePower > gvFnlMaxPower) {
+              loadActivePower = gvFnlMaxPower;
+            } else if (loadActivePower < 0) {
+              loadActivePower = 0.0f;
+            }
+          }
+          #endif
+          float totalActivePower = batChargePower + loadActivePower; // 需要设置一体机的发电功率
+
+          float setActivePower = totalActivePower;// * 0.98f; // 设置前再*一个有效值，避免并网机功率过大
+
+          float pvInverterRatedPower = (float) id(gv_bw_pv_inverter_rated_power); // 逆变器最大功率
+          //uint32_t pvInverterMaxPowerPercent = pv_inverter_max_power_percent; // 逆变器的最大发电百分比
+          uint32_t targetPowerLimit = (uint32_t) lroundf((setActivePower / pvInverterRatedPower) * 100.0f);
+          // 如果超出范围，那就只能设置最大
+          if (targetPowerLimit > pvInverterMaxPowerPercent) {
+            targetPowerLimit = pvInverterMaxPowerPercent;
+          }
+          if (targetPowerLimit < 0) {
+            targetPowerLimit = 0;
+          }
+          // 没有读取到逆变器的数据正常前都先不进行写入
+          if (!id(${jlsolis_1_name}_limit_output_power).has_state()) {
+            return;   // 通信异常，不写
+          }
+
+          float currentPowerPercent = id(${jlsolis_1_name}_limit_output_power).state; // 当前的百分比
+          if (isnan(currentPowerPercent)) {
+            return; // 读取不到正确的数据也直接不处理
+          }
+          // 如果百分比有区别的话，再进行设置
+          if (fabs(targetPowerLimit - currentPowerPercent) >= 1) {
+            id(bw_target_active_power).publish_state(setActivePower);
+            id(bw_target_power_limit).publish_state(targetPowerLimit);
+            // 实际调用变更modbus的数据
+            id(set_${jlsolis_1_name}_limit_output_power).execute(targetPowerLimit);
+          }
+
+
