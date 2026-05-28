@@ -212,8 +212,6 @@ sensor:
       name: "${bms6} total runtime"
     balancing_current:
       name: "${bms6} balancing current"
-    errors_bitmask:
-      name: "${bms6} errors bitmask"
 
 
 switch:
@@ -232,12 +230,18 @@ switch:
     name: "${bms6} enable bluetooth connection"
 
 
-
-
 text_sensor:
   - platform: jk_bms_ble
     jk_bms_ble_id: "${bms6}_client_ble"
     errors:
       name: "${bms6} errors"
+    errors_bitmask_hex:
+      name: "${bms6} errors bitmask hex"
+    balancer_status:
+      name: "${bms6} balancer status"
     total_runtime_formatted:
       name: "${bms6} total runtime formatted"
+    software_version:
+      name: "${bms6} software version"
+    hardware_version:
+      name: "${bms6} hardware version"
