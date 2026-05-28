@@ -144,8 +144,6 @@ sensor:
       name: "${bms1} total runtime"
     balancing_current:
       name: "${bms1} balancing current"
-    errors_bitmask:
-      name: "${bms1} errors bitmask"
 
 
 switch:
@@ -171,5 +169,13 @@ text_sensor:
     jk_bms_ble_id: "${bms1}_client_ble"
     errors:
       name: "${bms1} errors"
+    errors_bitmask_hex:
+      name: "${bms1} errors bitmask hex"
+    balancer_status:
+      name: "${bms1} balancer status"
     total_runtime_formatted:
       name: "${bms1} total runtime formatted"
+    software_version:
+      name: "${bms1} software version"
+    hardware_version:
+      name: "${bms1} hardware version"
