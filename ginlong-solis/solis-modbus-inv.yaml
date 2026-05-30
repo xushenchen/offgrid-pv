@@ -295,6 +295,21 @@ sensor:
     accuracy_decimals: 2
     filters:
       - multiply: 0.01
+  # 设置的功率比例(也读取出来看看)
+  - platform: modbus_controller
+    modbus_controller_id: modbus_jl_master
+    name: Limit output power
+    id: "${jlsolis_1_name}_limit_output_power"
+    register_type: holding
+    address: 3051
+    value_type: S_WORD
+    unit_of_measurement: '%'
+    device_class: power_factor
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+    icon: mdi:percent
+    entity_category: diagnostic
 
 text_sensor:
   - platform: modbus_controller
@@ -415,19 +430,3 @@ text_sensor:
     icon: mdi:chip
     skip_updates: 10
 
-  
-  - platform: modbus_controller
-    modbus_controller_id: modbus_jl_master
-    name: Limit output power
-    id: "${jlsolis_1_name}_limit_output_power"
-    register_type: holding
-    address: 3051
-    value_type: S_WORD
-    unit_of_measurement: '%'
-    device_class: power_factor
-    accuracy_decimals: 2
-    filters:
-      - multiply: 0.01
-    icon: mdi:percent
-    entity_category: diagnostic
-    skip_updates: 10
