@@ -341,19 +341,19 @@ number:
           id(bw_battery_float_charge_voltage).publish_state(x);
   # 逆变器偏移功率
   - platform: template
-      name: "BW Output Power Offset"
-      id: bw_output_power_offset
-      unit_of_measurement: "W"
-      min_value: 0
-      max_value: 1500
-      step: 1
-      optimistic: false
-      lambda: |- 
-        return id(gv_bw_output_power_offset);
-      set_action:
-        - lambda: |-
-            id(gv_bw_output_power_offset) = (uint32_t) x;
-            id(bw_output_power_offset).publish_state(x);
+    name: "BW Output Power Offset"
+    id: bw_output_power_offset
+    unit_of_measurement: "W"
+    min_value: 0
+    max_value: 1500
+    step: 1
+    optimistic: false
+    lambda: |- 
+      return id(gv_bw_output_power_offset);
+    set_action:
+      - lambda: |-
+          id(gv_bw_output_power_offset) = (uint32_t) x;
+          id(bw_output_power_offset).publish_state(x);
   # 进入浮充2的电压
   - platform: template
     name: "BW Battery Float Charge Voltage2"
