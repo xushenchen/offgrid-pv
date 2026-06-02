@@ -136,15 +136,16 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Active Power
+    id: "active_power"
     device_class: power
     state_class: measurement
     unit_of_measurement: W
     register_type: read
     address: 3004 # = 3005 - 1
     value_type: U_DWORD
-    on_value:
-      then:
-        - script.execute: modbus_activity
+    # on_value:
+    #   then:
+    #     - script.execute: modbus_activity
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Total DC output power
