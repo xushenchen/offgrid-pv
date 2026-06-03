@@ -549,7 +549,7 @@ interval:
           }
 
           // 如果当前标识为充满，又回落到浮充以前的话，更改充满标识
-          if (bwBatFloatChargeIsFull == true && currentBatTotalVoltage < floatChargeVoltage) {
+          if (bwBatFloatChargeStage >= 2 && currentBatTotalVoltage < floatChargeVoltage) {
             id(set_bw_bat_float_charge_stage).execute(0);
           } else if (bwBatFloatChargeIsFull == false && currentBatTotalVoltage >= endChargeVoltage) {
             id(set_bw_bat_float_charge_stage).execute(4);
@@ -557,7 +557,7 @@ interval:
 
           float loadActivePower = 0.0f; // 负载的有功功率(从电表获取)
           // 这里多添加了一个编译条件，在没有条件加电表做防逆流的情况下可以忽略这一步
-          #if ${use_fnl}
+          
           // 是否开启了防逆流 外加 判断电表数据如果存在的话进行赋值
           bool isEnableFnl = id(gv_bw_fnl_enable) && id(${wb_fnl_db_gl_id}).has_state() && !isnan(id(${wb_fnl_db_gl_id}).state);
           // 如果电池电压已经充满的话，就不再启用防逆流了
@@ -581,7 +581,7 @@ interval:
               loadActivePower = 0.0f;
             }
           }
-          #endif
+          
           float totalActivePower = batChargePower + loadActivePower; // 需要设置一体机的发电功率
 
           uint32_t bwPowerOffset = id(gv_bw_output_power_offset); // 并网机便宜的功率
