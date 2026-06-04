@@ -191,7 +191,7 @@ globals:
   # 是否开启并网防逆流
   - id: gv_bw_fnl_enable
     type: bool
-    restore_value: yes
+    restore_value: true
     initial_value: 'false'
   # 防逆流比例（0-100）
   - id: gv_bw_fnl_power_limit
