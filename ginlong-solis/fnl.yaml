@@ -18,6 +18,8 @@ script:
     then:
       - lambda: |-
           id(bw_battery_float_charge_voltage).publish_state(id(gv_bw_bat_float_charge_voltage_x100) / 100.0);
+          id(bw_battery_float_charge_voltage2).publish_state(id(gv_bw_bat_float_charge_voltage2_x100) / 100.0);
+          id(bw_battery_float_charge_voltage3).publish_state(id(gv_bw_bat_float_charge_voltage3_x100) / 100.0);
   - id: sync_bw_bat_charge_current
     then:
       - lambda: |-
@@ -26,6 +28,8 @@ script:
     then:
       - lambda: |-
           id(bw_battery_float_charge_current).publish_state(id(gv_bw_bat_float_charge_current));
+          id(bw_battery_float_charge_current2).publish_state(id(gv_bw_bat_float_charge_current2));
+          id(bw_battery_float_charge_current3).publish_state(id(gv_bw_bat_float_charge_current3));
   # 同步电池当前电压
   - id: sync_bw_bat_current_voltage
     then:
@@ -73,9 +77,14 @@ button:
       - lambda: |-
           id(gv_bw_bat_start_charge_voltage_x100) = 4000;
           id(gv_bw_bat_end_charge_voltage_x100) = 5720;
-          id(gv_bw_bat_float_charge_voltage_x100) = 5620;
           id(gv_bw_bat_charge_current) = 20;        // 设置的电池充电电流
-          id(gv_bw_bat_float_charge_current) = 20;  // 设置的浮充电流
+          // 设置的浮充电压、电流
+          id(gv_bw_bat_float_charge_voltage_x100) = 5500;
+          id(gv_bw_bat_float_charge_current) = 20;  
+          id(gv_bw_bat_float_charge_voltage2_x100) = 5520;
+          id(gv_bw_bat_float_charge_current2) = 20;  
+          id(gv_bw_bat_float_charge_voltage3_x100) = 5620;
+          id(gv_bw_bat_float_charge_current3) = 10;  
       - script.execute: sync_bw_bat_start_charge_voltage
       - script.execute: sync_bw_bat_end_charge_voltage
       - script.execute: sync_bw_bat_float_charge_voltage
