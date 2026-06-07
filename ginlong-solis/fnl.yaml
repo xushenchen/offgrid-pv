@@ -3,6 +3,7 @@ substitutions:
   use_fnl: true
   # 并网防逆流电表功率ID
   wb_fnl_db_gl_id: ${ddsd1352_1_name}_p
+  bw_jdq_main_gpio: GPIO39
 
 
 script:
@@ -236,7 +237,7 @@ switch:
 
   # 主并网继电器开关
   - platform: gpio
-    pin: GPIO39
+    pin: ${bw_jdq_main_gpio}
     name: "BW Jdq Main"
     id: "bw_jdq_main"
     inverted: false
