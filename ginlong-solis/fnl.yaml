@@ -559,7 +559,8 @@ interval:
           }
 
           // 如果当前标识为充满，又回落到浮充以前的话，更改充满标识
-          if (bwBatFloatChargeStage >= 2 && currentBatTotalVoltage < floatChargeVoltage) {
+          if ((bwBatFloatChargeStage >= 2 && currentBatTotalVoltage < floatChargeVoltage)
+          || (bwBatFloatChargeStage >= 1 && currentBatTotalVoltage < (floatChargeVoltage - 1.2))) {
             id(set_bw_bat_float_charge_stage).execute(0);
           } else if (bwBatFloatChargeIsFull == false && currentBatTotalVoltage >= endChargeVoltage) {
             id(set_bw_bat_float_charge_stage).execute(4);
