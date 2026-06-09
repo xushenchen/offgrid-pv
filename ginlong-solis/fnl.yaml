@@ -249,6 +249,8 @@ number:
     name: "BW PV Inverter Rated Power"
     id: bw_pv_inverter_rated_power
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
     min_value: 0
     max_value: 12000
     step: 100
@@ -264,6 +266,7 @@ number:
     name: "BW PV Inverter Max Power Limit"
     id: bw_pv_inverter_max_power_limit
     unit_of_measurement: "%"
+    device_class: power_factor
     min_value: 0
     max_value: 110
     step: 1
@@ -279,6 +282,8 @@ number:
     name: "BW Battery Charge Current"
     id: bw_battery_charge_current
     unit_of_measurement: "A"
+    device_class: current
+    state_class: measurement
     min_value: 0
     max_value: 300
     step: 1
@@ -294,6 +299,8 @@ number:
     name: "BW Battery Float Charge Current"
     id: bw_battery_float_charge_current
     unit_of_measurement: "A"
+    device_class: current
+    state_class: measurement
     min_value: 0
     max_value: 400
     step: 1
@@ -309,6 +316,8 @@ number:
     name: "BW Battery Start Charge Voltage"
     id: bw_battery_start_charge_voltage
     unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
     min_value: 40.0
     max_value: 80.0
     step: 0.01
@@ -324,6 +333,8 @@ number:
     name: "BW Battery End Charge Voltage"
     id: bw_battery_end_charge_voltage
     unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
     min_value: 40.0
     max_value: 80.0
     step: 0.01
@@ -339,6 +350,8 @@ number:
     name: "BW Battery Float Charge Voltage"
     id: bw_battery_float_charge_voltage
     unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
     min_value: 40.0
     max_value: 80.0
     step: 0.01
@@ -354,6 +367,8 @@ number:
     name: "BW Output Power Offset"
     id: bw_output_power_offset
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
     min_value: 0
     max_value: 1500
     step: 1
@@ -369,6 +384,8 @@ number:
     name: "BW Battery Float Charge Voltage2"
     id: bw_battery_float_charge_voltage2
     unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
     min_value: 40.0
     max_value: 80.0
     step: 0.01
@@ -384,6 +401,8 @@ number:
     name: "BW Battery Float Charge Current2"
     id: bw_battery_float_charge_current2
     unit_of_measurement: "A"
+    device_class: current
+    state_class: measurement
     min_value: 0
     max_value: 400
     step: 1
@@ -399,6 +418,8 @@ number:
     name: "BW Battery Float Charge Voltage3"
     id: bw_battery_float_charge_voltage3
     unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
     min_value: 40.0
     max_value: 80.0
     step: 0.01
@@ -414,6 +435,8 @@ number:
     name: "BW Battery Float Charge Current3"
     id: bw_battery_float_charge_current3
     unit_of_measurement: "A"
+    device_class: current
+    state_class: measurement
     min_value: 0
     max_value: 400
     step: 1
@@ -433,6 +456,7 @@ number:
     name: "BW FNL Power Limit"
     id: bw_fnl_power_limit
     unit_of_measurement: "%"
+    device_class: power_factor
     min_value: 0
     max_value: 100
     step: 1
@@ -448,6 +472,8 @@ number:
     name: "BW FNL Max Power"
     id: bw_fnl_max_power
     unit_of_measurement: "w"
+    device_class: power
+    state_class: measurement
     min_value: 0
     max_value: 30000
     step: 100
@@ -458,11 +484,13 @@ number:
       - lambda: |-
           id(gv_bw_fnl_max_power) = x;
           id(bw_fnl_max_power).publish_state(x);
-  # 并网防逆流比例
+  # 并网防逆流保持功率
   - platform: template
     name: "BW FNL Keep Power"
     id: bw_fnl_keep_power
     unit_of_measurement: "w"
+    device_class: power
+    state_class: measurement
     min_value: 0
     max_value: 5000
     step: 5
