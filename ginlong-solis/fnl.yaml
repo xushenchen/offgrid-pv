@@ -250,7 +250,6 @@ number:
     id: bw_pv_inverter_rated_power
     unit_of_measurement: "W"
     device_class: power
-    state_class: measurement
     min_value: 0
     max_value: 12000
     step: 100
