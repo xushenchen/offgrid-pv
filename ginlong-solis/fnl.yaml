@@ -538,7 +538,7 @@ interval:
           uint32_t bwBatFloatChargeCurrent = id(gv_bw_bat_float_charge_current); // 设置的浮充电流
           uint32_t pvInverterMaxPowerPercent = id(gv_bw_pv_inverter_max_power_limit); // 逆变器最大的功率比例
           bool bwBatFloatChargeStage = id(gv_bw_bat_float_charge_stage); // 当前电池充电的阶段
-          bool bwBatFloatChargeIsFull = bwBatFloatChargeStage >= 4;//id(gv_bw_bat_float_charge_is_full); // 当前是否是浮充满电状态
+          bool bwBatFloatChargeIsFull = id(gv_bw_bat_float_charge_is_full); // 当前是否是浮充满电状态
           float floatChargeVoltage3 = (float) id(gv_bw_bat_float_charge_voltage3_x100) / 100.0f; // 浮充电压3
           // 严谨点，强制浮充电流最大等于充电电流
           if (bwBatFloatChargeCurrent > bwBatChargeCurrent) {
