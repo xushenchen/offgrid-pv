@@ -221,7 +221,6 @@ globals:
 
 
 switch:
-#if ${use_fnl}
   # 并网防逆流开关
   - platform: template
     name: "BW FNL Enabled"
@@ -233,7 +232,6 @@ switch:
     turn_off_action:
       - lambda: |-
           id(gv_bw_fnl_enable) = false;
-#endif
 
   # 主并网继电器开关
   - platform: gpio
@@ -439,7 +437,6 @@ number:
 
 
 
-#if ${use_fnl}
   # 并网防逆流比例
   - platform: template
     name: "BW FNL Power Limit"
@@ -488,7 +485,6 @@ number:
       - lambda: |-
           id(gv_bw_fnl_keep_power) = x;
           id(bw_fnl_keep_power).publish_state(x);
-#endif
 
 binary_sensor:
   # 增加一个当前电池是否是充满的状态给前端，方便知道是不是因为充满了所以才没充电的
@@ -524,6 +520,11 @@ text_sensor:
                  std::to_string(id(gv_bw_bat_float_charge_stage)) +
                  ")";
       }
+  # 推送一些日志到页面进行显示
+  - platform: template
+    name: "BW FNL Log"
+    id: "bw_fnl_log"
+    update_interval: never
 
 # 间隔时间定时设置一体机的的参数
 interval:
@@ -537,7 +538,7 @@ interval:
           uint32_t bwBatFloatChargeCurrent = id(gv_bw_bat_float_charge_current); // 设置的浮充电流
           uint32_t pvInverterMaxPowerPercent = id(gv_bw_pv_inverter_max_power_limit); // 逆变器最大的功率比例
           bool bwBatFloatChargeStage = id(gv_bw_bat_float_charge_stage); // 当前电池充电的阶段
-          bool bwBatFloatChargeIsFull = bwBatFloatChargeStage == 4;//id(gv_bw_bat_float_charge_is_full); // 当前是否是浮充满电状态
+          bool bwBatFloatChargeIsFull = bwBatFloatChargeStage >= 4;//id(gv_bw_bat_float_charge_is_full); // 当前是否是浮充满电状态
           float floatChargeVoltage3 = (float) id(gv_bw_bat_float_charge_voltage3_x100) / 100.0f; // 浮充电压3
           // 严谨点，强制浮充电流最大等于充电电流
           if (bwBatFloatChargeCurrent > bwBatChargeCurrent) {
@@ -627,11 +628,13 @@ interval:
           }
           // 没有读取到逆变器的数据正常前都先不进行写入
           if (!id(${jlsolis_1_name}_limit_output_power).has_state()) {
+            id(bw_fnl_log).publish_state("W:与并网机的通讯异常，无法继续写入数据");
             return;   // 通信异常，不写
           }
 
           float currentPowerPercent = id(${jlsolis_1_name}_limit_output_power).state; // 当前的百分比
           if (isnan(currentPowerPercent)) {
+            id(bw_fnl_log).publish_state("W:与并网机的通讯异常，无法继续写入数据(无法正确识别到数据)");
             return; // 读取不到正确的数据也直接不处理
           }
           // 如果百分比有区别的话，再进行设置
@@ -640,6 +643,11 @@ interval:
             id(bw_target_power_limit).publish_state(targetPowerLimit);
             // 实际调用变更modbus的数据
             id(set_${jlsolis_1_name}_limit_output_power).execute(targetPowerLimit);
+
+            char logBuf[128];
+            snprintf(logBuf, sizeof(logBuf),
+            "设置逆变器功率比，Power=%dW, Ratio=%d%%", setActivePower, targetPowerLimit);
+            id(bw_fnl_log).publish_state(logBuf);
           }
 
 
