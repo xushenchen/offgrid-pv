@@ -646,7 +646,7 @@ interval:
 
             char logBuf[128];
             snprintf(logBuf, sizeof(logBuf),
-            "I: 设置逆变器功率比，Power=%dW, Ratio=%d%%", setActivePower, targetPowerLimit);
+            "I: 设置逆变器功率比，Power=%fW, Ratio=%u%%", setActivePower, targetPowerLimit);
             id(bw_fnl_log).publish_state(logBuf);
           }
 
