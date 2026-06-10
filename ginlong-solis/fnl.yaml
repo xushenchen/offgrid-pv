@@ -517,6 +517,8 @@ text_sensor:
           return {"浮充阶段3"};
         case 4:
           return {"已满电"};
+        case 5:
+          return {"已停机"};
         default:
           return std::string("未知状态(") +
                  std::to_string(id(gv_bw_bat_float_charge_stage)) +
