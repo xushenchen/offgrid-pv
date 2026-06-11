@@ -645,10 +645,10 @@ interval:
             // 实际调用变更modbus的数据
             id(set_${jlsolis_1_name}_limit_output_power).execute(targetPowerLimit);
 
-            char logBuf[128];
-            snprintf(logBuf, sizeof(logBuf),
-            "I: 设置逆变器功率比，负载功率:%.0fW, 预期充电功率=%.0fW 目标功率=%.0fW, 目标功率比=%u%%", loadActivePower, batChargePower, setActivePower, targetPowerLimit);
-            id(bw_fnl_log).publish_state(logBuf);
+            // char logBuf[128];
+            // snprintf(logBuf, sizeof(logBuf),
+            // "I: 设置逆变器功率比，负载功率:%.0fW, 预期充电功率=%.0fW 目标功率=%.0fW, 目标功率比=%u%%", loadActivePower, batChargePower, setActivePower, targetPowerLimit);
+            // id(bw_fnl_log).publish_state(logBuf);
           }
 
 
