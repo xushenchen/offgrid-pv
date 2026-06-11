@@ -546,6 +546,7 @@ interval:
           }
 
           float currentBatTotalVoltage = (float) id(gv_bw_current_battery_voltage_x100) / 100.0f; // 当前电池电压(从传感器中获取)
+          float currentBatTotalVoltageFormat = floor(currentBatTotalVoltage * 2.0f) / 2.0f; // 当前电池电压格式化后的结果，0.5步进向下取舍
           float batChargePower = 0.0f; // 需要给电池的充电功率
           // 至少有设置了起始、结束的充电电压才敢真启用充电
           if (startChargeVoltage >= 40 && endChargeVoltage >= 40) {
@@ -557,21 +558,21 @@ interval:
               && (currentBatTotalVoltage >= floatChargeVoltage3 || bwBatFloatChargeStage >= 3)) {
                 uint32_t bwBatFloatChargeCurrent3 = id(gv_bw_bat_float_charge_current3); // 设置的浮充电流
                 // 电池功率等于浮充电流 * 电压
-                batChargePower = currentBatTotalVoltage * bwBatFloatChargeCurrent3;
+                batChargePower = currentBatTotalVoltageFormat * bwBatFloatChargeCurrent3;
                 id(set_bw_bat_float_charge_stage).execute(3);
               } else if (floatChargeVoltage2 > floatChargeVoltage
               && (currentBatTotalVoltage >= floatChargeVoltage2 || bwBatFloatChargeStage >= 2)) {
                 uint32_t bwBatFloatChargeCurrent2 = id(gv_bw_bat_float_charge_current2); // 设置的浮充电流
                 // 电池功率等于浮充电流 * 电压
-                batChargePower = currentBatTotalVoltage * bwBatFloatChargeCurrent2;
+                batChargePower = currentBatTotalVoltageFormat * bwBatFloatChargeCurrent2;
                 id(set_bw_bat_float_charge_stage).execute(2);
               } else if (currentBatTotalVoltage >= floatChargeVoltage || bwBatFloatChargeStage >= 1) {
                 // 电池功率等于浮充电流 * 电压
-                batChargePower = currentBatTotalVoltage * bwBatFloatChargeCurrent;
+                batChargePower = currentBatTotalVoltageFormat * bwBatFloatChargeCurrent;
                 id(set_bw_bat_float_charge_stage).execute(1);
               } else {
                 // 电池功率等于正常充电电流 * 电压
-                batChargePower = currentBatTotalVoltage * bwBatChargeCurrent;
+                batChargePower = currentBatTotalVoltageFormat * bwBatChargeCurrent;
               }
             }
           }
