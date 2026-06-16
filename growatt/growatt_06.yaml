@@ -860,6 +860,7 @@ select:
       "电池优先": 0
       "光伏优先": 1
       "市电优先": 2
+      "防逆流": 3
   - platform: modbus_controller
     modbus_controller_id: ${growatt5_modbus_controller_id}
     name: "${growatt5_device_name} Charge Source Set"
