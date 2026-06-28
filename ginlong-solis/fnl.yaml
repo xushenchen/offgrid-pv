@@ -100,6 +100,7 @@ sensor:
     name: "BW Current Battery Voltage"
     id: bw_current_battery_voltage
     unit_of_measurement: V
+    state_class: measurement
     update_interval: never
     lambda: |-
       return id(gv_bw_current_battery_voltage_x100) / 100.0;
@@ -107,6 +108,7 @@ sensor:
   - platform: template
     name: "BW Target Active Power"
     id: bw_target_active_power
+    state_class: measurement
     unit_of_measurement: W
     update_interval: never
   # 当前设置的并网机器功率比例
@@ -114,6 +116,7 @@ sensor:
     name: "BW Target Power Limit"
     id: bw_target_power_limit
     unit_of_measurement: '%'
+    state_class: measurement
     update_interval: never
 
 globals:

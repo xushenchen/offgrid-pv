@@ -33,6 +33,7 @@ sensor:
     address: 1
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     device_class: voltage
     icon: mdi:flash
     value_type: U_WORD
@@ -46,6 +47,7 @@ sensor:
     address: 2
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     device_class: voltage
     icon: mdi:flash
     value_type: U_WORD
@@ -60,6 +62,7 @@ sensor:
     address: 3
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -74,6 +77,7 @@ sensor:
     address: 5
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -87,6 +91,7 @@ sensor:
     address: 7
     register_type: "read"
     unit_of_measurement: A
+    state_class: measurement
     device_class: current
     icon: mdi:flash
     value_type: U_WORD
@@ -100,6 +105,7 @@ sensor:
     address: 8
     register_type: "read"
     unit_of_measurement: A
+    state_class: measurement
     device_class: current
     icon: mdi:flash
     value_type: U_WORD
@@ -114,6 +120,7 @@ sensor:
     address: 9
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -128,6 +135,7 @@ sensor:
     address: 11
     register_type: "read"
     unit_of_measurement: VA
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -141,6 +149,7 @@ sensor:
     address: 13
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -154,6 +163,7 @@ sensor:
     address: 15
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -168,6 +178,7 @@ sensor:
     address: 17
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     device_class: voltage
     icon: mdi:flash
     value_type: U_WORD
@@ -181,6 +192,7 @@ sensor:
     address: 18
     register_type: "read"
     unit_of_measurement: "%"
+    state_class: measurement
     device_class: battery
     icon: mdi:battery
     value_type: U_WORD
@@ -191,6 +203,7 @@ sensor:
     address: 19
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     device_class: voltage
     icon: mdi:flash
     value_type: U_WORD
@@ -205,6 +218,7 @@ sensor:
     address: 20
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     device_class: voltage
     icon: mdi:flash
     value_type: U_WORD
@@ -219,6 +233,7 @@ sensor:
     address: 21
     register_type: "read"
     unit_of_measurement: Hz
+    state_class: measurement
     icon: mdi:flash
     value_type: U_WORD
     accuracy_decimals: 1
@@ -232,6 +247,7 @@ sensor:
     address: 22
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     icon: mdi:flash
     value_type: U_WORD
     accuracy_decimals: 1
@@ -245,6 +261,7 @@ sensor:
     address: 23
     register_type: "read"
     unit_of_measurement: Hz
+    state_class: measurement
     icon: mdi:flash
     value_type: U_WORD
     accuracy_decimals: 1
@@ -257,6 +274,7 @@ sensor:
     address: 24
     register_type: "read"
     unit_of_measurement: V
+    state_class: measurement
     icon: mdi:flash
     value_type: U_WORD
     accuracy_decimals: 1
@@ -269,6 +287,7 @@ sensor:
     address: 25
     register_type: "read"
     unit_of_measurement: "℃"
+    state_class: measurement
     device_class: temperature
     icon: mdi:thermometer
     value_type: U_WORD
@@ -282,6 +301,7 @@ sensor:
     address: 26
     register_type: "read"
     unit_of_measurement: "℃"
+    state_class: measurement
     device_class: temperature
     icon: mdi:thermometer
     value_type: U_WORD
@@ -295,6 +315,7 @@ sensor:
     address: 27
     register_type: "read"
     unit_of_measurement: "%"
+    state_class: measurement
     device_class: temperature
     icon: mdi:gauge
     value_type: U_WORD
@@ -308,6 +329,7 @@ sensor:
     address: 34
     register_type: "read"
     unit_of_measurement: A
+    state_class: measurement
     device_class: current
     icon: mdi:flash
     value_type: U_WORD
@@ -320,6 +342,7 @@ sensor:
     address: 35
     register_type: "read"
     unit_of_measurement: A
+    state_class: measurement
     device_class: current
     icon: mdi:flash
     value_type: U_WORD
@@ -333,6 +356,7 @@ sensor:
     address: 36
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -349,6 +373,7 @@ sensor:
     address: 38
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -427,6 +452,7 @@ sensor:
     address: 48
     register_type: "read"
     unit_of_measurement: kWh
+    state_class: total
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -454,6 +480,7 @@ sensor:
     address: 52
     register_type: "read"
     unit_of_measurement: kWh
+    state_class: total
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -481,6 +508,7 @@ sensor:
     address: 60
     register_type: "read"
     unit_of_measurement: kWh
+    state_class: total
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -536,6 +564,7 @@ sensor:
     address: 69
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: power
     icon: mdi:flash
     value_type: U_DWORD
@@ -553,6 +582,7 @@ sensor:
     address: 73
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     value_type: U_DWORD
@@ -566,6 +596,7 @@ sensor:
     address: 75
     register_type: "read"
     unit_of_measurement: A
+    state_class: measurement
     device_class: current
     icon: mdi:flash
     value_type: U_WORD
@@ -580,6 +611,7 @@ sensor:
     address: 77
     register_type: "read"
     unit_of_measurement: W
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     value_type: S_DWORD
@@ -593,6 +625,7 @@ sensor:
     address: 81
     register_type: "read"
     unit_of_measurement: "%"
+    state_class: measurement
     device_class: temperature
     icon: mdi:thermometer
     value_type: U_WORD
@@ -604,6 +637,7 @@ sensor:
     address: 82
     register_type: "read"
     unit_of_measurement: "%"
+    state_class: measurement
     device_class: temperature
     icon: mdi:thermometer
     value_type: U_WORD
@@ -615,6 +649,7 @@ sensor:
     address: 93
     register_type: "read"
     unit_of_measurement: "%"
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     value_type: U_WORD
@@ -622,6 +657,7 @@ sensor:
   - platform: template
     name: "${growatt0_device_name} Battery Charge Watts​"
     unit_of_measurement: W
+    state_class: measurement
     device_class: energy
     icon: mdi:flash
     update_interval: 2s
@@ -638,6 +674,7 @@ sensor:
   - platform: template
     name: "${growatt0_device_name} Total PV power"
     unit_of_measurement: "W"
+    state_class: measurement
     accuracy_decimals: 1
     icon: "mdi:solar-power"
     lambda: |-
@@ -647,6 +684,7 @@ sensor:
   - platform: template
     name: "${growatt0_device_name} Battery Current"
     unit_of_measurement: "A"
+    state_class: measurement
     accuracy_decimals: 2
     icon: mdi:flash
     lambda: |-
