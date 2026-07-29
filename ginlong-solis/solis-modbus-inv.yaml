@@ -22,7 +22,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
 #
-
+substitutions:
+  jlsolis_1_skip_updates: 0
 script:
   # 添加一个可以设置功率百分比的脚本
   - id: set_${jlsolis_1_name}_limit_output_power
@@ -47,7 +48,7 @@ number:
     unit_of_measurement: '%'
     entity_category: config
     icon: mdi:percent
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
     mode: box
     min_value: 0
     max_value: 110
@@ -62,7 +63,7 @@ select:
     value_type: U_WORD
     entity_category: config
     icon: mdi:cog-outline
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
     optionsmap:
       "No response mode": 0
       "Volt-Watt default": 1
@@ -165,7 +166,7 @@ sensor:
     address: 3008 # = 3009 - 1
     value_type: U_DWORD
     force_new_range: true # workaround to seperate reg 3006: "skip_updates applies for all components in the same range"
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Energy this month
@@ -175,7 +176,7 @@ sensor:
     register_type: read
     address: 3010 # = 3011 - 1
     value_type: U_DWORD
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Energy last month
@@ -185,7 +186,7 @@ sensor:
     register_type: read
     address: 3012 # = 3013 - 1
     value_type: U_DWORD
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Energy today
@@ -198,7 +199,7 @@ sensor:
     accuracy_decimals: 1
     filters:
       - multiply: 0.1
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Energy last day
@@ -211,7 +212,7 @@ sensor:
     accuracy_decimals: 1
     filters:
       - multiply: 0.1
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: DC voltage 1
@@ -322,7 +323,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:factory
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: DSP software version
@@ -333,7 +334,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:chip
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: LCD software version
@@ -343,7 +344,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:chip
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
   - platform: modbus_controller
     modbus_controller_id: modbus_jl_master
     name: Country standard code
@@ -353,7 +354,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:earth
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
     lambda: |-
       uint16_t value = modbus_controller::word_from_hex_str(x, 0);
       switch (value) {
@@ -372,7 +373,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:numeric
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
     lambda: |-
       char serialnumber[2 * 8 + 1];
       for (int j = 0; j < 8; j++) {
@@ -390,7 +391,7 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:clock-digital
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
     lambda: |-
       time_t i_t;
       struct tm i_tm = { 0 };
@@ -429,5 +430,5 @@ text_sensor:
     raw_encode: HEXBYTES
     entity_category: diagnostic
     icon: mdi:chip
-    skip_updates: 10
+    skip_updates: ${jlsolis_1_skip_updates}
 
