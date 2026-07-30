@@ -421,14 +421,14 @@ text_sensor:
         ESP_LOGI("SyncInverterRTC", "Inverter RTC not checked because NTP is not yet synchronised");
       }
       return {};
-  - platform: modbus_controller
-    modbus_controller_id: modbus_jl_master
-    name: Inverter type definition
-    register_type: read
-    address: 35000
-    response_size: 2
-    raw_encode: HEXBYTES
-    entity_category: diagnostic
-    icon: mdi:chip
-    skip_updates: ${jlsolis_1_skip_updates}
+  # - platform: modbus_controller
+  #   modbus_controller_id: modbus_jl_master
+  #   name: Inverter type definition
+  #   register_type: read
+  #   address: 35000
+  #   response_size: 2
+  #   raw_encode: HEXBYTES
+  #   entity_category: diagnostic
+  #   icon: mdi:chip
+  #   skip_updates: ${jlsolis_1_skip_updates}
 
