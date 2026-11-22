@@ -356,7 +356,7 @@ text_sensor:
     icon: mdi:earth
     skip_updates: ${jlsolis_1_skip_updates}
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         /* Solis Spec Appendix 3 */
         case 0x003: return std::string("VDE0126");
